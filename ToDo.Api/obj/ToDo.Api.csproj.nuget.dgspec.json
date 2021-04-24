@@ -1,36 +1,38 @@
 {
   "format": 1,
   "restore": {
-    "/home/alessandro/Source/ToDo/ToDo.Api/ToDo.Api.csproj": {}
+    "C:\\repos\\ToDo\\ToDo\\ToDo.Api\\ToDo.Api.csproj": {}
   },
   "projects": {
-    "/home/alessandro/Source/ToDo/ToDo.Api/ToDo.Api.csproj": {
+    "C:\\repos\\ToDo\\ToDo\\ToDo.Api\\ToDo.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/alessandro/Source/ToDo/ToDo.Api/ToDo.Api.csproj",
+        "projectUniqueName": "C:\\repos\\ToDo\\ToDo\\ToDo.Api\\ToDo.Api.csproj",
         "projectName": "ToDo.Api",
-        "projectPath": "/home/alessandro/Source/ToDo/ToDo.Api/ToDo.Api.csproj",
-        "packagesPath": "/home/alessandro/.nuget/packages/",
-        "outputPath": "/home/alessandro/Source/ToDo/ToDo.Api/obj/",
+        "projectPath": "C:\\repos\\ToDo\\ToDo\\ToDo.Api\\ToDo.Api.csproj",
+        "packagesPath": "C:\\Users\\alesi\\.nuget\\packages\\",
+        "outputPath": "C:\\repos\\ToDo\\ToDo\\ToDo.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/alessandro/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\alesi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "/home/alessandro/Source/ToDo/ToDo.Domain/ToDo.Domain.csproj": {
-                "projectPath": "/home/alessandro/Source/ToDo/ToDo.Domain/ToDo.Domain.csproj"
+              "C:\\repos\\ToDo\\ToDo\\ToDo.Domain\\ToDo.Domain.csproj": {
+                "projectPath": "C:\\repos\\ToDo\\ToDo\\ToDo.Domain\\ToDo.Domain.csproj"
               },
-              "/home/alessandro/Source/ToDo/ToDo.Infra/ToDo.Infra.csproj": {
-                "projectPath": "/home/alessandro/Source/ToDo/ToDo.Infra/ToDo.Infra.csproj"
+              "C:\\repos\\ToDo\\ToDo\\ToDo.Infra\\ToDo.Infra.csproj": {
+                "projectPath": "C:\\repos\\ToDo\\ToDo\\ToDo.Infra\\ToDo.Infra.csproj"
               }
             }
           }
@@ -45,9 +47,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "AspNet.HealthChecks.UI.Client": {
+            "AspNetCore.HealthChecks.Publisher.ApplicationInsights": {
               "target": "Package",
-              "version": "[1.0.0, )"
+              "version": "[5.0.1, )"
             },
             "AspNetCore.HealthChecks.SqlServer": {
               "target": "Package",
@@ -58,6 +60,10 @@
               "version": "[5.0.1, )"
             },
             "AspNetCore.HealthChecks.UI.Client": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "AspNetCore.HealthChecks.UI.InMemory.Storage": {
               "target": "Package",
               "version": "[5.0.1, )"
             },
@@ -95,11 +101,17 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.0-preview.3.21201.2, )"
+              "version": "[5.0.5, )"
             },
-            "Microsoft.EntityFrameworkCore.InMemory": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.0-preview.3.21201.2, )"
+              "version": "[5.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.5, )"
             },
             "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
@@ -132,26 +144,28 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/alessandro/Source/ToDo/ToDo.Domain/ToDo.Domain.csproj": {
+    "C:\\repos\\ToDo\\ToDo\\ToDo.Domain\\ToDo.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/alessandro/Source/ToDo/ToDo.Domain/ToDo.Domain.csproj",
+        "projectUniqueName": "C:\\repos\\ToDo\\ToDo\\ToDo.Domain\\ToDo.Domain.csproj",
         "projectName": "ToDo.Domain",
-        "projectPath": "/home/alessandro/Source/ToDo/ToDo.Domain/ToDo.Domain.csproj",
-        "packagesPath": "/home/alessandro/.nuget/packages/",
-        "outputPath": "/home/alessandro/Source/ToDo/ToDo.Domain/obj/",
+        "projectPath": "C:\\repos\\ToDo\\ToDo\\ToDo.Domain\\ToDo.Domain.csproj",
+        "packagesPath": "C:\\Users\\alesi\\.nuget\\packages\\",
+        "outputPath": "C:\\repos\\ToDo\\ToDo\\ToDo.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/alessandro/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\alesi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -182,13 +196,21 @@
               "target": "Package",
               "version": "[9.0.0, )"
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.5, )"
+            },
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
-              "version": "[6.0.0-preview.3.21201.4, )"
+              "version": "[5.0.0, )"
             },
-            "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions": {
+            "Microsoft.Extensions.Diagnostics.HealthChecks": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.5, )"
             },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
@@ -214,34 +236,36 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/alessandro/Source/ToDo/ToDo.Infra/ToDo.Infra.csproj": {
+    "C:\\repos\\ToDo\\ToDo\\ToDo.Infra\\ToDo.Infra.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/alessandro/Source/ToDo/ToDo.Infra/ToDo.Infra.csproj",
+        "projectUniqueName": "C:\\repos\\ToDo\\ToDo\\ToDo.Infra\\ToDo.Infra.csproj",
         "projectName": "ToDo.Infra",
-        "projectPath": "/home/alessandro/Source/ToDo/ToDo.Infra/ToDo.Infra.csproj",
-        "packagesPath": "/home/alessandro/.nuget/packages/",
-        "outputPath": "/home/alessandro/Source/ToDo/ToDo.Infra/obj/",
+        "projectPath": "C:\\repos\\ToDo\\ToDo\\ToDo.Infra\\ToDo.Infra.csproj",
+        "packagesPath": "C:\\Users\\alesi\\.nuget\\packages\\",
+        "outputPath": "C:\\repos\\ToDo\\ToDo\\ToDo.Infra\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/alessandro/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\alesi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "/home/alessandro/Source/ToDo/ToDo.Domain/ToDo.Domain.csproj": {
-                "projectPath": "/home/alessandro/Source/ToDo/ToDo.Domain/ToDo.Domain.csproj"
+              "C:\\repos\\ToDo\\ToDo\\ToDo.Domain\\ToDo.Domain.csproj": {
+                "projectPath": "C:\\repos\\ToDo\\ToDo\\ToDo.Domain\\ToDo.Domain.csproj"
               }
             }
           }
@@ -260,14 +284,6 @@
               "target": "Package",
               "version": "[5.0.1, )"
             },
-            "AspNetCore.HealthChecks.UI.InMemory.Storage": {
-              "target": "Package",
-              "version": "[5.0.1, )"
-            },
-            "AspNetCore.HealthChecks.UI.SQLite.Storage": {
-              "target": "Package",
-              "version": "[5.0.1, )"
-            },
             "FluentValidation": {
               "target": "Package",
               "version": "[10.0.4, )"
@@ -279,24 +295,6 @@
             "MediatR.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[9.0.0, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[6.0.0-preview.3.21201.2, )"
-            },
-            "Microsoft.EntityFrameworkCore.Abstractions": {
-              "target": "Package",
-              "version": "[6.0.0-preview.3.21201.2, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[6.0.0-preview.3.21201.2, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[6.0.0-preview.3.21201.2, )"
             }
           },
           "imports": [
@@ -314,7 +312,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

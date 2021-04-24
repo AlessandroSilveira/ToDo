@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "14KPOoziNYrYXxW9gvHvz7ObWyy71yQ9oGUvnglYVzCES8X8GURSSInfavDCBhLJ+KCN9LM7KTBHwxM1c5Q+Ng==",
+  "dgSpecHash": "XYfb0Ldz64k579PlQI71Gd1KuFRTDfZcS6480tLHYaSvESGJlqpP7GLfJ65SypzEyCPljTMu9LJnQs9JvmD85Q==",
   "success": true,
-  "projectFilePath": "/home/alessandro/Source/ToDo/ToDo.Tests/ToDo.Tests.csproj",
+  "projectFilePath": "C:\\repos\\ToDo\\ToDo\\ToDo.Tests\\ToDo.Tests.csproj",
   "expectedPackageFiles": [
-    "/home/alessandro/.nuget/packages/fluentvalidation/10.0.4/fluentvalidation.10.0.4.nupkg.sha512",
-    "/home/alessandro/.nuget/packages/mediatr/9.0.0/mediatr.9.0.0.nupkg.sha512",
-    "/home/alessandro/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/9.0.0/mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
-    "/home/alessandro/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/2.0.0/microsoft.extensions.dependencyinjection.abstractions.2.0.0.nupkg.sha512"
+    "C:\\Users\\alesi\\.nuget\\packages\\fluentvalidation\\10.0.4\\fluentvalidation.10.0.4.nupkg.sha512",
+    "C:\\Users\\alesi\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
+    "C:\\Users\\alesi\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\9.0.0\\mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
+    "C:\\Users\\alesi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.0.0\\microsoft.extensions.dependencyinjection.abstractions.2.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -27,6 +27,10 @@ using ToDo.Domain.Validators.Commands;
 using ToDo.Infra.Base;
 using ToDo.Infra.Context;
 using ToDo.Infra.Repositories;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using ToDo.Domain.HealthCheck;
 
 namespace ToDo.Api
 {
@@ -45,14 +49,27 @@ namespace ToDo.Api
         {
             services.AddCors();
             services.AddControllers();
-            services.AddHealthChecks();
 
-            //rvices.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Todos"));
             services.AddDbContext<DataContext>(opt =>
-                opt.UseSqlServer(
-                    "Server=localhost;Database=Todos;User ID=sa;Password=Sprpwd1234;MultipleActiveResultSets=True;"));
-            
-           
+                opt.UseSqlServer("Server=localhost;Database=Todos;User ID=sa;Password=Sprpwd1234;MultipleActiveResultSets=True;"));
+
+          
+
+            services.AddHealthChecks()
+             .AddDiskStorageHealthCheck(s => s.AddDrive("C:\\", 1024))
+                .AddProcessAllocatedMemoryHealthCheck(512)
+                .AddProcessHealthCheck("ProcessName", p => p.Length > 0)
+                .AddWindowsServiceHealthCheck("someservice", s => true)
+                .AddUrlGroup(new Uri("https://localhost:44318/ToDo"), "Example endpoint")
+                .AddSqlServer("Server=localhost;Database=Todos;User ID=sa;Password=Sprpwd1234;MultipleActiveResultSets=True;");
+
+            services
+               .AddHealthChecksUI(s =>
+               {
+                   s.AddHealthCheckEndpoint("endpoint1", "https://localhost:44318/health");
+               })
+               .AddInMemoryStorage();
+
             services.AddScoped<ITodoRepository, TodoRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITodoService, ToDoService>();
@@ -60,6 +77,7 @@ namespace ToDo.Api
             services.AddScoped<TodoHandler, TodoHandler>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<DataContext>();
+            services.AddScoped<IHealthCheck, SelfHealthCheck>();
 
             var key = Encoding.ASCII.GetBytes(Configuration["JWT:Secret"]);
             services.AddAuthentication(x =>
@@ -89,7 +107,7 @@ namespace ToDo.Api
                     Title = "ASP.NET 5 Web API",
                     Description = "Authentication and Authorization in ASP.NET 5 with JWT and Swagger"
                 });
-                
+
                 // To Enable authorization using Swagger (JWT)    
                 swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
@@ -124,10 +142,10 @@ namespace ToDo.Api
             services.AddScoped<IDomainNotificationContext, DomainNotificationContext>();
             services.AddScoped<AsyncRequestHandler<CreateTodoCommand>, CreateTodoCommandHandler>();
             services.AddTransient<IRequestHandler<GetAllToDoCommand, IEnumerable<TodoItem>>, GetAllToDoCommandHandler>();
-           
+
         }
-        
-       
+
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -138,12 +156,26 @@ namespace ToDo.Api
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ASP.NET 5 Web API v1"));
-            app.UseHttpsRedirection();
-            app.UseRouting();
+
+
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-            app.UseEndpoints(endpoints => { endpoints.MapHealthChecks("/health"); });
+            app.UseHttpsRedirection();
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHealthChecksUI();
+
+                endpoints.MapHealthChecks("/health", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
+            });
+
+
         }
     }
 }

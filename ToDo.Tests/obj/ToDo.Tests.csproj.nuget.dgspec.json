@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/alessandro/Source/ToDo/ToDo.Tests/ToDo.Tests.csproj": {}
+    "C:\\repos\\ToDo\\ToDo\\ToDo.Tests\\ToDo.Tests.csproj": {}
   },
   "projects": {
-    "/home/alessandro/Source/ToDo/ToDo.Tests/ToDo.Tests.csproj": {
+    "C:\\repos\\ToDo\\ToDo\\ToDo.Tests\\ToDo.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/alessandro/Source/ToDo/ToDo.Tests/ToDo.Tests.csproj",
+        "projectUniqueName": "C:\\repos\\ToDo\\ToDo\\ToDo.Tests\\ToDo.Tests.csproj",
         "projectName": "ToDo.Tests",
-        "projectPath": "/home/alessandro/Source/ToDo/ToDo.Tests/ToDo.Tests.csproj",
-        "packagesPath": "/home/alessandro/.nuget/packages/",
-        "outputPath": "/home/alessandro/Source/ToDo/ToDo.Tests/obj/",
+        "projectPath": "C:\\repos\\ToDo\\ToDo\\ToDo.Tests\\ToDo.Tests.csproj",
+        "packagesPath": "C:\\Users\\alesi\\.nuget\\packages\\",
+        "outputPath": "C:\\repos\\ToDo\\ToDo\\ToDo.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/alessandro/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\alesi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -66,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
