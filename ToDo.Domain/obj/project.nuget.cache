@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "dgSpecHash": "G1//51Xjv3L2WJGKpAi5G1ZDJvqP8VPbRJHnvVCGP98dcCwLlH7ukaFichIXp8N0Bzfe14uvKbV7EF/GUxYXTA==",
+  "success": true,
+  "projectFilePath": "/home/alessandro/Source/ToDo/ToDo.Domain/ToDo.Domain.csproj",
+  "expectedPackageFiles": [
+    "/home/alessandro/.nuget/packages/fluentvalidation/10.0.4/fluentvalidation.10.0.4.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/mediatr/9.0.0/mediatr.9.0.0.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/9.0.0/mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/microsoft.extensions.configuration.abstractions/6.0.0-preview.3.21201.4/microsoft.extensions.configuration.abstractions.6.0.0-preview.3.21201.4.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/2.0.0/microsoft.extensions.dependencyinjection.abstractions.2.0.0.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/microsoft.extensions.diagnostics.healthchecks.abstractions/5.0.1/microsoft.extensions.diagnostics.healthchecks.abstractions.5.0.1.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/microsoft.extensions.primitives/6.0.0-preview.3.21201.4/microsoft.extensions.primitives.6.0.0-preview.3.21201.4.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/microsoft.identitymodel.jsonwebtokens/6.8.0/microsoft.identitymodel.jsonwebtokens.6.8.0.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/microsoft.identitymodel.logging/6.10.2/microsoft.identitymodel.logging.6.10.2.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/microsoft.identitymodel.tokens/6.10.2/microsoft.identitymodel.tokens.6.10.2.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/system.identitymodel.tokens.jwt/6.8.0/system.identitymodel.tokens.jwt.6.8.0.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0-preview.3.21201.4/system.runtime.compilerservices.unsafe.6.0.0-preview.3.21201.4.nupkg.sha512",
+    "/home/alessandro/.nuget/packages/system.security.cryptography.cng/4.5.0/system.security.cryptography.cng.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

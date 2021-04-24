@@ -1,0 +1,12 @@
+/home/alessandro/Source/ToDo/ToDo.Tests/bin/Debug/net5.0/ToDo.Tests.deps.json
+/home/alessandro/Source/ToDo/ToDo.Tests/bin/Debug/net5.0/ToDo.Tests.dll
+/home/alessandro/Source/ToDo/ToDo.Tests/bin/Debug/net5.0/ref/ToDo.Tests.dll
+/home/alessandro/Source/ToDo/ToDo.Tests/bin/Debug/net5.0/ToDo.Tests.pdb
+/home/alessandro/Source/ToDo/ToDo.Tests/obj/Debug/net5.0/ToDo.Tests.csprojAssemblyReference.cache
+/home/alessandro/Source/ToDo/ToDo.Tests/obj/Debug/net5.0/ToDo.Tests.GeneratedMSBuildEditorConfig.editorconfig
+/home/alessandro/Source/ToDo/ToDo.Tests/obj/Debug/net5.0/ToDo.Tests.AssemblyInfoInputs.cache
+/home/alessandro/Source/ToDo/ToDo.Tests/obj/Debug/net5.0/ToDo.Tests.AssemblyInfo.cs
+/home/alessandro/Source/ToDo/ToDo.Tests/obj/Debug/net5.0/ToDo.Tests.csproj.CoreCompileInputs.cache
+/home/alessandro/Source/ToDo/ToDo.Tests/obj/Debug/net5.0/ToDo.Tests.dll
+/home/alessandro/Source/ToDo/ToDo.Tests/obj/Debug/net5.0/ref/ToDo.Tests.dll
+/home/alessandro/Source/ToDo/ToDo.Tests/obj/Debug/net5.0/ToDo.Tests.pdb
