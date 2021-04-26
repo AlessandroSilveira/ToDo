@@ -46,7 +46,7 @@ namespace ToDo.Api.Controllers
             var userExists = await _userService.GetByUserName(user.Username);  
             if (userExists != null)  
                 return StatusCode(StatusCodes.Status500InternalServerError, 
-                    new ToDo.Domain.Auth.Response { Status = "Error", Message = "User already exists!" });  
+                    new Response { Status = "Error", Message = "User already exists!" });  
   
             user = new User()  
             {  
@@ -55,7 +55,7 @@ namespace ToDo.Api.Controllers
             };
             try
             {
-                _userService.Create(user);  
+                await _userService.Create(user);  
                 return Ok(new Response { Status = "Success", Message = "User created successfully!" });  
             }
             catch (Exception )

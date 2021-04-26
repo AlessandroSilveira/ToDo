@@ -11,6 +11,7 @@ using Todo.Domain.Handlers;
 using ToDo.Domain.Notification;
 using ToDo.Domain.Repositories.Interfaces;
 using ToDo.Domain.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace ToDo.Api.Controllers
 {
@@ -22,12 +23,14 @@ namespace ToDo.Api.Controllers
         private readonly ITodoService _todoService;
         private readonly IMediator _bus;
         private readonly IDomainNotificationContext _notificationContext;
+        private readonly ILogger<ToDoController> _logger;
 
-        public ToDoController(ITodoService todoService, IMediator bus, IDomainNotificationContext notificationContext)
+        public ToDoController(ITodoService todoService, IMediator bus, IDomainNotificationContext notificationContext, ILogger<ToDoController> logger)
         {
             _todoService = todoService;
             _bus = bus;
             _notificationContext = notificationContext;
+            _logger = logger;
         }
 
         [Route("")]
@@ -35,11 +38,13 @@ namespace ToDo.Api.Controllers
         public async Task<IActionResult> GetAll()
         { 
             var response = await _bus.Send(new GetAllToDoCommand(User.Claims.FirstOrDefault()?.Value));
-            
+            _logger.LogInformation($"Success to GetAll Todos");
+
             if (_notificationContext.HasErrorNotifications)
             {
                 var notifications = _notificationContext.GetErrorNotifications();
                 var message = string.Join(", ", notifications.Select(x => x.Value));
+                _logger.LogInformation(message);
                 return BadRequest(message);
             }
             

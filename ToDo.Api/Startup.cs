@@ -60,13 +60,13 @@ namespace ToDo.Api
                 .AddProcessAllocatedMemoryHealthCheck(512)
                 .AddProcessHealthCheck("ProcessName", p => p.Length > 0)
                 .AddWindowsServiceHealthCheck("someservice", s => true)
-                .AddUrlGroup(new Uri("https://localhost:44318/ToDo"), "Example endpoint")
+                .AddUrlGroup(new Uri("https://localhost:44318/v1/HealthCheck/HealthCheck"), "HealthCheck ToDos")
                 .AddSqlServer("Server=localhost;Database=Todos;User ID=sa;Password=Sprpwd1234;MultipleActiveResultSets=True;");
 
             services
                .AddHealthChecksUI(s =>
                {
-                   s.AddHealthCheckEndpoint("endpoint1", "https://localhost:44318/health");
+                   s.AddHealthCheckEndpoint("HealthCheck ToDos", "https://localhost:44318/health");
                })
                .AddInMemoryStorage();
 
@@ -136,6 +136,7 @@ namespace ToDo.Api
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateTodoCommandValidator>());
+
             var assembly = AppDomain.CurrentDomain.Load("ToDo.Domain");
             services.AddMediatR(assembly);
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationRequestBehavior<,>));

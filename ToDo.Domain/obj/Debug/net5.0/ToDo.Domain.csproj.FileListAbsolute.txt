@@ -14,7 +14,6 @@ C:\repos\ToDo\ToDo\ToDo.Domain\bin\Debug\net5.0\ToDo.Domain.deps.json
 C:\repos\ToDo\ToDo\ToDo.Domain\bin\Debug\net5.0\ToDo.Domain.dll
 C:\repos\ToDo\ToDo\ToDo.Domain\bin\Debug\net5.0\ref\ToDo.Domain.dll
 C:\repos\ToDo\ToDo\ToDo.Domain\bin\Debug\net5.0\ToDo.Domain.pdb
-C:\repos\ToDo\ToDo\ToDo.Domain\obj\Debug\net5.0\ToDo.Domain.csprojAssemblyReference.cache
 C:\repos\ToDo\ToDo\ToDo.Domain\obj\Debug\net5.0\ToDo.Domain.GeneratedMSBuildEditorConfig.editorconfig
 C:\repos\ToDo\ToDo\ToDo.Domain\obj\Debug\net5.0\ToDo.Domain.AssemblyInfoInputs.cache
 C:\repos\ToDo\ToDo\ToDo.Domain\obj\Debug\net5.0\ToDo.Domain.AssemblyInfo.cs
@@ -22,3 +21,4 @@ C:\repos\ToDo\ToDo\ToDo.Domain\obj\Debug\net5.0\ToDo.Domain.csproj.CoreCompileIn
 C:\repos\ToDo\ToDo\ToDo.Domain\obj\Debug\net5.0\ToDo.Domain.dll
 C:\repos\ToDo\ToDo\ToDo.Domain\obj\Debug\net5.0\ref\ToDo.Domain.dll
 C:\repos\ToDo\ToDo\ToDo.Domain\obj\Debug\net5.0\ToDo.Domain.pdb
+C:\repos\ToDo\ToDo\ToDo.Domain\obj\Debug\net5.0\ToDo.Domain.csprojAssemblyReference.cache
