@@ -14,7 +14,6 @@ C:\repos\ToDo\ToDo\ToDo.Tests\bin\Debug\net5.0\ToDo.Tests.deps.json
 C:\repos\ToDo\ToDo\ToDo.Tests\bin\Debug\net5.0\ToDo.Tests.dll
 C:\repos\ToDo\ToDo\ToDo.Tests\bin\Debug\net5.0\ref\ToDo.Tests.dll
 C:\repos\ToDo\ToDo\ToDo.Tests\bin\Debug\net5.0\ToDo.Tests.pdb
-C:\repos\ToDo\ToDo\ToDo.Tests\obj\Debug\net5.0\ToDo.Tests.csprojAssemblyReference.cache
 C:\repos\ToDo\ToDo\ToDo.Tests\obj\Debug\net5.0\ToDo.Tests.GeneratedMSBuildEditorConfig.editorconfig
 C:\repos\ToDo\ToDo\ToDo.Tests\obj\Debug\net5.0\ToDo.Tests.AssemblyInfoInputs.cache
 C:\repos\ToDo\ToDo\ToDo.Tests\obj\Debug\net5.0\ToDo.Tests.AssemblyInfo.cs

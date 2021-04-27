@@ -340,4 +340,12 @@ ASALocalRun/
 healthchecksdb
 
 #ignorando a pasta out
-/Neon.Ted.API/out/
+bin/
+obj/
+ref/
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages

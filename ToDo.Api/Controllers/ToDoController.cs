@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ToDo.Domain.Commands;
-using ToDo.Domain.Entities;
-using Todo.Domain.Handlers;
 using ToDo.Domain.Notification;
-using ToDo.Domain.Repositories.Interfaces;
 using ToDo.Domain.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -36,18 +31,18 @@ namespace ToDo.Api.Controllers
         [Route("")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
-        { 
+        {
             var response = await _bus.Send(new GetAllToDoCommand(User.Claims.FirstOrDefault()?.Value));
-            _logger.LogInformation($"Success to GetAll Todos");
+            _logger.LogInformation($"Success to get all todos");
 
             if (_notificationContext.HasErrorNotifications)
             {
                 var notifications = _notificationContext.GetErrorNotifications();
                 var message = string.Join(", ", notifications.Select(x => x.Value));
-                _logger.LogInformation(message);
+                _logger.LogError(message);
                 return BadRequest(message);
             }
-            
+
             return Ok(response);
         }
 
@@ -55,106 +50,184 @@ namespace ToDo.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllDone()
         {
-            // var user = User.Claims.FirstOrDefault()?.Value;
-            // return await _todoService.GetAllDone(user);
+
             var response = await _bus.Send(new GetAllDoneToDoCommand(User.Claims.FirstOrDefault()?.Value));
-            
+            _logger.LogInformation($"Success to get all done todos");
+
             if (_notificationContext.HasErrorNotifications)
             {
                 var notifications = _notificationContext.GetErrorNotifications();
                 var message = string.Join(", ", notifications.Select(x => x.Value));
+                _logger.LogError(message);
                 return BadRequest(message);
             }
-            
+
             return Ok(response);
         }
 
         [Route("undone")]
         [HttpGet]
-        public async Task<IEnumerable<TodoItem>> GetAllUndone([FromServices]ITodoRepository repository)
+        public async Task<IActionResult> GetAllUndone()
         {
-            var user = User.Claims.FirstOrDefault()?.Value;
-            return await _todoService.GetAllUndone(user);
+            var response = await _bus.Send(new GetAllUndoneToDoCommand(User.Claims.FirstOrDefault()?.Value));
+            _logger.LogInformation($"Success to get all undone todos");
+
+            if (_notificationContext.HasErrorNotifications)
+            {
+                var notifications = _notificationContext.GetErrorNotifications();
+                var message = string.Join(", ", notifications.Select(x => x.Value));
+                _logger.LogError(message);
+                return BadRequest(message);
+            }
+
+            return Ok(response);
         }
 
         [Route("done/today")]
         [HttpGet]
-        public async Task<IEnumerable<TodoItem>> GetDoneForToday(
-            [FromServices]ITodoRepository repository
-        )
+        public async Task<IActionResult> GetDoneForToday()
         {
-            var user = User.Claims.FirstOrDefault()?.Value;
-            return await _todoService.GetByPeriod(user, DateTime.Now.Date, true);
+            var response = await _bus.Send(new GetDoneForTodayToDoCommand(User.Claims.FirstOrDefault()?.Value));
+            _logger.LogInformation($"Success to get all done for today todos");
+
+            if (_notificationContext.HasErrorNotifications)
+            {
+                var notifications = _notificationContext.GetErrorNotifications();
+                var message = string.Join(", ", notifications.Select(x => x.Value));
+                _logger.LogError(message);
+                return BadRequest(message);
+            }
+
+            return Ok(response);
         }
 
         [Route("undone/today")]
         [HttpGet]
-        public async Task<IEnumerable<TodoItem>> GetInactiveForToday(
-            [FromServices]ITodoRepository repository
-        )
+        public async Task<IActionResult> GetInactiveForToday()
         {
-            var user = User.Claims.FirstOrDefault()?.Value;
-            return await _todoService.GetByPeriod(user, DateTime.Now.Date, false);
+            var response = await _bus.Send(new GetUndoneForTodayToDoCommand(User.Claims.FirstOrDefault()?.Value));
+            _logger.LogInformation($"Success to get all undone todos");
+
+            if (_notificationContext.HasErrorNotifications)
+            {
+                var notifications = _notificationContext.GetErrorNotifications();
+                var message = string.Join(", ", notifications.Select(x => x.Value));
+                _logger.LogError(message);
+                return BadRequest(message);
+            }
+
+            return Ok(response);
         }
 
         [Route("done/tomorrow")]
         [HttpGet]
-        public async Task<IEnumerable<TodoItem>> GetDoneForTomorrow([FromServices]ITodoRepository repository)
+        public async Task<IActionResult> GetDoneForTomorrow()
         {
-            var user = User.Claims.FirstOrDefault()?.Value;
-            return await _todoService.GetByPeriod(user, DateTime.Now.Date.AddDays(1), true);
+            var response = await _bus.Send(new GetDoneForTomorrowToDoCommand(User.Claims.FirstOrDefault()?.Value));
+            _logger.LogInformation($"Success to get done for tomorrow todos");
+
+            if (_notificationContext.HasErrorNotifications)
+            {
+                var notifications = _notificationContext.GetErrorNotifications();
+                var message = string.Join(", ", notifications.Select(x => x.Value));
+                _logger.LogError(message);
+                return BadRequest(message);
+            }
+
+            return Ok(response);
         }
 
         [Route("undone/tomorrow")]
         [HttpGet]
-        public async Task<IEnumerable<TodoItem>> GetUndoneForTomorrow(
-            [FromServices]ITodoRepository repository
-        )
+        public async Task<IActionResult> GetUndoneForTomorrow()
         {
-            var user = User.Claims.FirstOrDefault()?.Value;
-            return  await _todoService.GetByPeriod(user, DateTime.Now.Date.AddDays(1), false);
+            var response = await _bus.Send(new GetUndoneForTomorrowToDoCommand(User.Claims.FirstOrDefault()?.Value));
+            _logger.LogInformation($"Success to get all undone for tomorrow todos");
+
+            if (_notificationContext.HasErrorNotifications)
+            {
+                var notifications = _notificationContext.GetErrorNotifications();
+                var message = string.Join(", ", notifications.Select(x => x.Value));
+                _logger.LogError(message);
+                return BadRequest(message);
+            }
+
+            return Ok(response);
         }
 
         [Route("")]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]CreateTodoCommand command, [FromServices]TodoHandler handler)
+        public async Task<IActionResult> Create([FromBody] CreateTodoCommand command)
         {
-             command.User = User.Claims.FirstOrDefault()?.Value;
-            
+            command.User = User.Claims.FirstOrDefault()?.Value;
+
             var ret = await _bus.Send(command);
-            
+            _logger.LogInformation($"Success to create todo");
+
+            if (_notificationContext.HasErrorNotifications)
+            {
+                var notifications = _notificationContext.GetErrorNotifications();
+                var message = string.Join(", ", notifications.Select(x => x.Value));
+                _logger.LogError(message);
+                return BadRequest(message);
+            }
+
+            return Ok(ret);
+        }
+
+        [Route("")]
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateTodoCommand command)
+        {
+            command.User = User.Claims.FirstOrDefault()?.Value;
+
+            var ret = await _bus.Send(command);
+            _logger.LogInformation($"Success to update todo");
+
             if (_notificationContext.HasErrorNotifications)
             {
                 var notifications = _notificationContext.GetErrorNotifications();
                 var message = string.Join(", ", notifications.Select(x => x.Value));
                 return BadRequest(message);
             }
-            
-            return Ok(ret);
-        }
 
-        [Route("")]
-        [HttpPut]
-        public async Task<GenericCommandResult> Update([FromBody]UpdateTodoCommand command, [FromServices]TodoHandler handler)
-        {
-            command.User = User.Claims.FirstOrDefault()?.Value;
-            return await handler.Handle(command);
+            return Ok(ret);
         }
 
         [Route("mark-as-done")]
         [HttpPut]
-        public async Task<GenericCommandResult> MarkAsDone([FromBody]MarkTodoAsDoneCommand command, [FromServices]TodoHandler handler)
-        {
-            command.User = User.Claims.FirstOrDefault()?.Value;
-            return await handler.Handle(command);
+        public async Task<IActionResult> MarkAsDone([FromBody] MarkTodoAsDoneCommand command)
+        {          
+            var response = await _bus.Send(new MarkTodoAsDoneCommand(command.Id, User.Claims.FirstOrDefault()?.Value));
+            _logger.LogInformation($"Success to mark todo as done");
+
+            if (_notificationContext.HasErrorNotifications)
+            {
+                var notifications = _notificationContext.GetErrorNotifications();
+                var message = string.Join(", ", notifications.Select(x => x.Value));
+                _logger.LogError(message);
+                return BadRequest(message);
+            }
+
+            return Ok(response);
         }
 
         [Route("mark-as-undone")]
         [HttpPut]
-        public async Task<GenericCommandResult> MarkAsUndone([FromBody]MarkTodoAsUndoneCommand command, [FromServices]TodoHandler handler)
+        public async Task<IActionResult> MarkAsUndone([FromBody] MarkTodoAsUndoneCommand command)
         {
-            command.User = User.Claims.FirstOrDefault()?.Value;
-            return await handler.Handle(command);
+            var response = await _bus.Send(new MarkTodoAsUndoneCommand(command.Id, User.Claims.FirstOrDefault()?.Value));
+            _logger.LogInformation($"Success to mark todo as undone");
+
+            if (_notificationContext.HasErrorNotifications)
+            {
+                var notifications = _notificationContext.GetErrorNotifications();
+                var message = string.Join(", ", notifications.Select(x => x.Value));
+                _logger.LogError(message);
+                return BadRequest(message);
+            }
+
+            return Ok(response);
         }
     }
 }

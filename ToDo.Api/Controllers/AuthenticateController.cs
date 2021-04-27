@@ -55,7 +55,7 @@ namespace ToDo.Api.Controllers
             };
             try
             {
-                await _userService.Create(user);  
+                _userService.Create(user);  
                 return Ok(new Response { Status = "Success", Message = "User created successfully!" });  
             }
             catch (Exception )

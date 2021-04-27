@@ -7,7 +7,7 @@ using ToDo.Domain.Repositories.Interfaces;
 
 namespace ToDo.Domain.Handlers
 {
-    public class CreateTodoCommandHandler : AsyncRequestHandler<CreateTodoCommand>
+    public class CreateTodoCommandHandler : IRequestHandler<CreateTodoCommand, GenericCommandResult>
     {
         private readonly ITodoRepository _repository;
         
@@ -15,10 +15,11 @@ namespace ToDo.Domain.Handlers
         {
             _repository = repository;
         }
-        
-        protected override async Task<GenericCommandResult> Handle(CreateTodoCommand request, CancellationToken cancellationToken)
+       
+
+        async Task<GenericCommandResult> IRequestHandler<CreateTodoCommand, GenericCommandResult>.Handle(CreateTodoCommand request, CancellationToken cancellationToken)
         {
-            var todo = new TodoItem(request.Title,false, request.Date, request.User);
+            var todo = new TodoItem(request.Title, false, request.Date, request.User);
             await _repository.Add(todo);
             return new GenericCommandResult(true, "Tarefa salva", todo);
         }

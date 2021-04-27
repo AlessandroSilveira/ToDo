@@ -5,7 +5,7 @@ using MediatR;
 
 namespace ToDo.Domain.Commands
 {
-    public class MarkTodoAsDoneCommand : IRequest<string>
+    public class MarkTodoAsDoneCommand : IRequest<GenericCommandResult>
     {
         public MarkTodoAsDoneCommand() { }
 

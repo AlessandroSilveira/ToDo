@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using ToDo.Domain.Base;
 using ToDo.Domain.Entities;
 

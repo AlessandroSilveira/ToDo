@@ -17,7 +17,6 @@ using ToDo.Domain.Base;
 using ToDo.Domain.Behaviors;
 using ToDo.Domain.Commands;
 using ToDo.Domain.Entities;
-using Todo.Domain.Handlers;
 using ToDo.Domain.Handlers;
 using ToDo.Domain.Notification;
 using ToDo.Domain.Repositories.Interfaces;
@@ -74,7 +73,7 @@ namespace ToDo.Api
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITodoService, ToDoService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<TodoHandler, TodoHandler>();
+            
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<DataContext>();
             services.AddScoped<IHealthCheck, SelfHealthCheck>();
@@ -141,7 +140,7 @@ namespace ToDo.Api
             services.AddMediatR(assembly);
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationRequestBehavior<,>));
             services.AddScoped<IDomainNotificationContext, DomainNotificationContext>();
-            services.AddScoped<AsyncRequestHandler<CreateTodoCommand>, CreateTodoCommandHandler>();
+            services.AddScoped<IRequestHandler<CreateTodoCommand, GenericCommandResult>, CreateTodoCommandHandler>();
             services.AddTransient<IRequestHandler<GetAllToDoCommand, IEnumerable<TodoItem>>, GetAllToDoCommandHandler>();
 
         }

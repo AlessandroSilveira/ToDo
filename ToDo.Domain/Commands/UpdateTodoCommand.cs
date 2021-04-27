@@ -4,7 +4,7 @@ using MediatR;
 
 namespace ToDo.Domain.Commands
 {
-    public class UpdateTodoCommand : IRequest<string>
+    public class UpdateTodoCommand : IRequest<GenericCommandResult>
     {
         public UpdateTodoCommand() { }
 

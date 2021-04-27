@@ -4,7 +4,7 @@ using MediatR;
 
 namespace ToDo.Domain.Commands
 {
-    public class MarkTodoAsUndoneCommand : IRequest<string>
+    public class MarkTodoAsUndoneCommand : IRequest<GenericCommandResult>
     {
         public MarkTodoAsUndoneCommand() { }
 
@@ -16,7 +16,5 @@ namespace ToDo.Domain.Commands
 
         public Guid Id { get; set; }
         public string User { get; set; }
-
-        
     }
-    }
+}

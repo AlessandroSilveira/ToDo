@@ -3,7 +3,7 @@ using MediatR;
 
 namespace ToDo.Domain.Commands
 {
-    public class CreateTodoCommand  :  IRequest
+    public class CreateTodoCommand  :  IRequest<GenericCommandResult>
     {
         public CreateTodoCommand() { }
 
