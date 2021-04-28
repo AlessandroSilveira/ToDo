@@ -7,7 +7,7 @@ using ToDo.Domain.Commands;
 using ToDo.Domain.Entities;
 using ToDo.Domain.Repositories.Interfaces;
 
-namespace ToDo.Domain.Handlers
+namespace ToDo.Domain.Handlers.ToDoHandles
 {
     public class GetDoneForTomorrowToDoCommandHandler : IRequestHandler<GetDoneForTomorrowToDoCommand, IEnumerable<TodoItem>>
     {

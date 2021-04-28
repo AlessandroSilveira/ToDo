@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ToDo.Domain.Auth;
 using ToDo.Domain.Entities;
 
 namespace ToDo.Infra.Context
@@ -15,6 +16,7 @@ namespace ToDo.Infra.Context
 
         public virtual DbSet<TodoItem> Todos { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,6 +29,7 @@ namespace ToDo.Infra.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TodoItem>().ToTable("Todo");
+            modelBuilder.Entity<TodoItem>().HasKey(c => new { c.Id });
             modelBuilder.Entity<TodoItem>().Property(x => x.Id);
             modelBuilder.Entity<TodoItem>().Property(x => x.User).HasMaxLength(120).HasColumnType("varchar(120)");
             modelBuilder.Entity<TodoItem>().Property(x => x.Title).HasMaxLength(160).HasColumnType("varchar(160)");
@@ -35,10 +38,11 @@ namespace ToDo.Infra.Context
             modelBuilder.Entity<TodoItem>().HasIndex(b => b.User);
             
             modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<User>().HasKey(c => new { c.Id });
             modelBuilder.Entity<User>().Property(x => x.Id);
             modelBuilder.Entity<User>().Property(x => x.Username).HasMaxLength(120).HasColumnType("varchar(120)");
             modelBuilder.Entity<User>().Property(x => x.Password).HasMaxLength(10).HasColumnType("varchar(10)");
-            
+
             base.OnModelCreating(modelBuilder);
         }
     }

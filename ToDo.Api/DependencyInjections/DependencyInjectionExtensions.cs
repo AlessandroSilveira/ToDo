@@ -11,8 +11,10 @@ using System.Text;
 using ToDo.Domain.Base;
 using ToDo.Domain.Behaviors;
 using ToDo.Domain.Commands;
+using ToDo.Domain.Commands.ToDoCommands;
 using ToDo.Domain.Entities;
 using ToDo.Domain.Handlers;
+using ToDo.Domain.Handlers.ToDoHandles;
 using ToDo.Domain.HealthCheck;
 using ToDo.Domain.Notification;
 using ToDo.Domain.Repositories.Interfaces;
@@ -65,6 +67,7 @@ namespace ToDo.Api.DependencyInjections
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
                 .AddJwtBearer(x =>
@@ -76,7 +79,10 @@ namespace ToDo.Api.DependencyInjections
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        RequireExpirationTime = false,                        
+                        ClockSkew = TimeSpan.Zero
                     };
                 });
 

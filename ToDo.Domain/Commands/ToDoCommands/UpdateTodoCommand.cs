@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics.Contracts;
 using MediatR;
 
-namespace ToDo.Domain.Commands
+namespace ToDo.Domain.Commands.ToDoCommands
 {
     public class UpdateTodoCommand : IRequest<GenericCommandResult>
     {

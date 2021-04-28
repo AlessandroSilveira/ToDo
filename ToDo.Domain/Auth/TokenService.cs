@@ -5,6 +5,7 @@ using ToDo.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace ToDo.Domain.Auth
 {
@@ -28,9 +29,9 @@ namespace ToDo.Domain.Auth
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-        
-       
-    }
 
-    
+        
+
+
+    }
 }

@@ -5,17 +5,17 @@ using ToDo.Domain.Commands;
 using ToDo.Domain.Entities;
 using ToDo.Domain.Repositories.Interfaces;
 
-namespace ToDo.Domain.Handlers
+namespace ToDo.Domain.Handlers.ToDoHandles
 {
     public class CreateTodoCommandHandler : IRequestHandler<CreateTodoCommand, GenericCommandResult>
     {
         private readonly ITodoRepository _repository;
-        
+
         public CreateTodoCommandHandler(ITodoRepository repository)
         {
             _repository = repository;
         }
-       
+
 
         async Task<GenericCommandResult> IRequestHandler<CreateTodoCommand, GenericCommandResult>.Handle(CreateTodoCommand request, CancellationToken cancellationToken)
         {

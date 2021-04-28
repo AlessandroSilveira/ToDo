@@ -6,7 +6,7 @@ using ToDo.Domain.Commands;
 using ToDo.Domain.Entities;
 using ToDo.Domain.Repositories.Interfaces;
 
-namespace ToDo.Domain.Handlers
+namespace ToDo.Domain.Handlers.ToDoHandles
 {
     public class GetAllDoneToDoCommandHandler : IRequestHandler<GetAllDoneToDoCommand, IEnumerable<TodoItem>>
     {
@@ -19,7 +19,7 @@ namespace ToDo.Domain.Handlers
 
         public async Task<IEnumerable<TodoItem>> Handle(GetAllDoneToDoCommand request, CancellationToken cancellationToken)
         {
-            var dados = await _todoRepository.Search(a => a.User == request.User  && a.Done == true);
+            var dados = await _todoRepository.Search(a => a.User == request.User && a.Done == true);
             return await Task.FromResult(dados);
         }
     }
