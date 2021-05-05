@@ -9,9 +9,9 @@ namespace ToDo.Domain.Handlers.AuthHandlers
 {
     public class GetRefreshTokenCommandHandler : IRequestHandler<GetRefreshTokenCommand, RefreshToken>
     {
-        private readonly IRefreshTokenRepository _refreshTokenRepository;
+        private readonly IRefreshTokenCacheRepository _refreshTokenRepository;
 
-        public GetRefreshTokenCommandHandler(IRefreshTokenRepository refreshTokenRepository)
+        public GetRefreshTokenCommandHandler(IRefreshTokenCacheRepository refreshTokenRepository)
         {
             _refreshTokenRepository = refreshTokenRepository;
         }

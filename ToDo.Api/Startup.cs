@@ -35,7 +35,13 @@ namespace ToDo.Api
             services.ConfigureMediatr();
 
             services.AddDbContext<DataContext>(opt =>
-                opt.UseSqlServer(Configuration["ConnectionStrings"]));
+                opt.UseSqlServer(Configuration.GetConnectionString("ConnectionStrings")));
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetConnectionString("ConexaoRedis");
+                options.InstanceName = "ToDo.Api";
+            });
         }
 
 

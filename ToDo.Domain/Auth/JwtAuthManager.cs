@@ -6,25 +6,30 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json.Serialization;
+using MediatR;
 using Microsoft.IdentityModel.Tokens;
 using ToDo.Domain.Commands.AuthCommands;
+using ToDo.Domain.Repositories.Interfaces;
 
 namespace ToDo.Domain.Auth
 {
-   
+
     public class JwtAuthManager : IJwtAuthManager
     {
         public IImmutableDictionary<string, RefreshToken> UsersRefreshTokensReadOnlyDictionary => _usersRefreshTokens.ToImmutableDictionary();
         private readonly ConcurrentDictionary<string, RefreshToken> _usersRefreshTokens;  // can store in a database or a distributed cache
         private readonly JwtTokenConfig _jwtTokenConfig;
         private readonly byte[] _secret;
+        private readonly IMediator _bus;
+        private readonly IRefreshTokenCacheRepository _refreshTokenCacheRepository;
 
-        public JwtAuthManager(JwtTokenConfig jwtTokenConfig)
+        public JwtAuthManager(JwtTokenConfig jwtTokenConfig, IMediator bus, IRefreshTokenCacheRepository refreshTokenCacheRepository)
         {
             _jwtTokenConfig = jwtTokenConfig;
             _usersRefreshTokens = new ConcurrentDictionary<string, RefreshToken>();
             _secret = Encoding.ASCII.GetBytes(jwtTokenConfig.Secret);
+            _bus = bus;
+            _refreshTokenCacheRepository = refreshTokenCacheRepository;
         }
 
         // optional: clean up expired refresh tokens
@@ -50,12 +55,10 @@ namespace ToDo.Domain.Auth
         public JwtAuthResult GenerateTokens(string username, Claim[] claims, DateTime now)
         {
             var shouldAddAudienceClaim = string.IsNullOrWhiteSpace(claims?.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Aud)?.Value);
-            var jwtToken = new JwtSecurityToken(
-                _jwtTokenConfig.Issuer,
-                shouldAddAudienceClaim ? _jwtTokenConfig.Audience : string.Empty,
-                claims,
-                expires: now.AddMinutes(_jwtTokenConfig.AccessTokenExpiration),
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(_secret), SecurityAlgorithms.HmacSha256Signature));
+
+            var jwtToken = new JwtSecurityToken(_jwtTokenConfig.Issuer,shouldAddAudienceClaim ? _jwtTokenConfig.Audience : string.Empty,
+                claims,expires: now.AddMinutes(_jwtTokenConfig.AccessTokenExpiration),signingCredentials: new SigningCredentials(new SymmetricSecurityKey(_secret), SecurityAlgorithms.HmacSha256Signature));
+
             var accessToken = new JwtSecurityTokenHandler().WriteToken(jwtToken);
 
             var refreshToken = new RefreshToken
@@ -64,7 +67,9 @@ namespace ToDo.Domain.Auth
                 TokenString = GenerateRefreshTokenString(),
                 ExpireAt = now.AddMinutes(_jwtTokenConfig.RefreshTokenExpiration)
             };
-            _usersRefreshTokens.AddOrUpdate(refreshToken.TokenString, refreshToken, (_, _) => refreshToken);
+
+            //_usersRefreshTokens.AddOrUpdate(refreshToken.TokenString, refreshToken, (_, _) => refreshToken);
+            _bus.Send(new AddRefreshTokenCommand(refreshToken));
 
             return new JwtAuthResult
             {
@@ -73,23 +78,21 @@ namespace ToDo.Domain.Auth
             };
         }
 
-        public JwtAuthResult Refresh(string refreshToken, string accessToken, DateTime now)
+        public JwtAuthResult RefreshAsync(string refreshToken, string accessToken, DateTime now)
         {
             var (principal, jwtToken) = DecodeJwtToken(accessToken);
-            if (jwtToken == null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
-            {
-                throw new SecurityTokenException("Invalid token");
-            }
+
+            if (jwtToken == null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))            
+                throw new SecurityTokenException("Invalid token");            
 
             var userName = principal.Identity.Name;
-            if (!_usersRefreshTokens.TryGetValue(refreshToken, out var existingRefreshToken))
-            {
-                throw new SecurityTokenException("Invalid token");
-            }
-            if (existingRefreshToken.UserName != userName || existingRefreshToken.ExpireAt < now)
-            {
-                throw new SecurityTokenException("Invalid token");
-            }
+            var refreshTokenResult = _bus.Send(new GetRefreshTokenCommand(refreshToken)).Result;
+
+            if (refreshTokenResult == null)            
+                throw new SecurityTokenException("Invalid token");            
+
+            if (refreshTokenResult.UserName != userName || refreshTokenResult.ExpireAt < now)            
+                throw new SecurityTokenException("Invalid token");            
 
             return GenerateTokens(userName, principal.Claims.ToArray(), now); // need to recover the original claims
         }

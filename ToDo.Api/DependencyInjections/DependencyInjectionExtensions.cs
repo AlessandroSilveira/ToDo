@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -13,10 +12,13 @@ using ToDo.Domain.Auth;
 using ToDo.Domain.Base;
 using ToDo.Domain.Behaviors;
 using ToDo.Domain.Commands;
+using ToDo.Domain.Commands.AuthCommands;
 using ToDo.Domain.Commands.ToDoCommands;
+using ToDo.Domain.Commands.UserCommand;
 using ToDo.Domain.Entities;
-using ToDo.Domain.Handlers;
+using ToDo.Domain.Handlers.AuthHandlers;
 using ToDo.Domain.Handlers.ToDoHandles;
+using ToDo.Domain.Handlers.UserHandlers;
 using ToDo.Domain.HealthCheck;
 using ToDo.Domain.Notification;
 using ToDo.Domain.Repositories.Interfaces;
@@ -33,6 +35,9 @@ namespace ToDo.Api.DependencyInjections
         {
             services.AddScoped<ITodoRepository, TodoRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddScoped<IRefreshTokenCacheRepository, RefreshTokenCacheRepository>();
+            services.AddScoped<IJwtAuthManager, JwtAuthManager>();
             services.AddScoped<ITodoService, ToDoService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -151,6 +156,12 @@ namespace ToDo.Api.DependencyInjections
             services.AddTransient<IRequestHandler<MarkTodoAsDoneCommand, GenericCommandResult>, MarkTodoAsDoneCommandHandler>();
             services.AddTransient<IRequestHandler<MarkTodoAsUndoneCommand, GenericCommandResult>, MarkTodoAsUndoneCommandHandler>();
             services.AddTransient<IRequestHandler<UpdateTodoCommand, GenericCommandResult>, UpdateTodoCommandHandler>();
+            services.AddTransient<IRequestHandler<GetUserCommand, User>, GetUserCommandHandler>();
+            services.AddTransient<IRequestHandler<GetRefreshTokenCommand, RefreshToken>, GetRefreshTokenCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateRefreskTokenCommand, RefreshToken>, UpdateRefreshTokenCommandHandler>();
+            services.AddTransient<IRequestHandler<AddRefreshTokenCommand, RefreshToken>, AddRefreshTokenCommandHandler>();
+
+            
 
             return services;
         }

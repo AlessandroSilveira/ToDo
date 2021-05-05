@@ -10,11 +10,11 @@ namespace ToDo.Domain.Commands.AuthCommands
         {
         }        
 
-        public GetRefreshTokenCommand(Guid refreshToken)
+        public GetRefreshTokenCommand(string refreshToken)
         {
             RefreshToken = refreshToken;
         }
 
-        public Guid RefreshToken { get; set; }
+        public string RefreshToken { get; set; }
     }
 }
