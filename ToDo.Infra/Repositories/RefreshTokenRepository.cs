@@ -1,4 +1,5 @@
 ﻿using ToDo.Domain.Auth;
+using ToDo.Domain.Commands.AuthCommands;
 using ToDo.Domain.Repositories.Interfaces;
 using ToDo.Infra.Base;
 using ToDo.Infra.Context;

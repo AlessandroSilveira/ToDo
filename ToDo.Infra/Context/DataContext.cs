@@ -1,22 +1,22 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ToDo.Domain.Auth;
 using ToDo.Domain.Entities;
 
 namespace ToDo.Infra.Context
 {
-    public class DataContext : DbContext
+    public class DataContext  : DbContext
     {
         public DataContext()
         {
         }
-        public DataContext(DbContextOptions<DataContext> options)
-            : base(options)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
 
         public virtual DbSet<TodoItem> Todos { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
+       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

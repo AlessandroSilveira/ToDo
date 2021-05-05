@@ -1,22 +1,18 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using ToDo.Domain.Entities;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace ToDo.Domain.Auth
 {
-    public class RefreshToken : Entity
+    public class RefreshToken
     {
-        public string Token { get; set; }
-        public DateTime Expires { get; set; }
-        public bool IsExpired => DateTime.UtcNow >= Expires;
-        public DateTime Created { get; set; }
-        public string CreatedByIp { get; set; }
-        public DateTime? Revoked { get; set; }
-        public string RevokedByIp { get; set; }
-        public string ReplacedByToken { get; set; }
-        public bool IsActive => Revoked == null && !IsExpired;
+        [JsonPropertyName("username")]
+        public string UserName { get; set; }    // can be used for usage tracking
+        // can optionally include other metadata, such as user agent, ip address, device name, and so on
 
-       
+        [JsonPropertyName("tokenString")]
+        public string TokenString { get; set; }
+
+        [JsonPropertyName("expireAt")]
+        public DateTime ExpireAt { get; set; }
     }
 }

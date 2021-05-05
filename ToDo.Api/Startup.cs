@@ -8,6 +8,8 @@ using ToDo.Infra.Context;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using ToDo.Api.DependencyInjections;
+using ToDo.Domain.Auth;
+using Microsoft.AspNetCore.Identity;
 
 namespace ToDo.Api
 {
