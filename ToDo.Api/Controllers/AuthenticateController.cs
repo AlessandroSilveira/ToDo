@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -98,6 +97,7 @@ namespace ToDo.Api.Controllers
             }
             catch (SecurityTokenException e)
             {
+                _logger.LogError(e.Message);
                 return Unauthorized(e.Message); // return 401 so that the client side can redirect the user to login page
             }
         }
@@ -109,9 +109,6 @@ namespace ToDo.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                // We can utilise the model
-                //var existingUser = await _userManager.FindByEmailAsync(user.Email);
-
                 var existingUser = await _bus.Send(new GetUserCommand(user));
 
                 if (existingUser != null)
@@ -123,11 +120,10 @@ namespace ToDo.Api.Controllers
                                 "User already in use"
                             },
                         Success = false
-                    });
-                    
+                    });                    
                 }
 
-                var isCreated = await _bus.Send(new AddUserCommand(user)); //await _userManager.CreateAsync(newUser, user.Password);
+                var isCreated = await _bus.Send(new AddUserCommand(user));
                 var claims = new[]
                 {
                     new Claim(ClaimTypes.Name,isCreated.Username),
@@ -141,16 +137,19 @@ namespace ToDo.Api.Controllers
                 }
                 else
                 {
+                    _logger.LogInformation("User already in use");
                     return BadRequest(new AuthResult()
                     {
-                        Errors = new List<string> { "Não foi possível criar o usuário" },
+                        Errors = new List<string> { "Nï¿½o foi possï¿½vel criar o usuï¿½rio" },
                         Success = false
                     }); ;
                 }
             }
 
+            _logger.LogError("Invalid payload");
             return BadRequest(new RegistrationResponse()
             {
+                
                 Errors = new List<string>() {
                         "Invalid payload"
                     },

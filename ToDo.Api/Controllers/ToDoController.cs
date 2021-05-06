@@ -5,31 +5,30 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ToDo.Domain.Commands;
 using ToDo.Domain.Notification;
-using ToDo.Domain.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using ToDo.Domain.Commands.ToDoCommands;
 
 namespace ToDo.Api.Controllers
 {
     [ApiController]
-    [Route("v1/todos")]
+    [Route("api/{controller}")]
     [Authorize]
     public class ToDoController : ControllerBase
     {
-        private readonly ITodoService _todoService;
+        
         private readonly IMediator _bus;
         private readonly IDomainNotificationContext _notificationContext;
         private readonly ILogger<ToDoController> _logger;
 
-        public ToDoController(ITodoService todoService, IMediator bus, IDomainNotificationContext notificationContext, ILogger<ToDoController> logger)
+        public ToDoController(IMediator bus, IDomainNotificationContext notificationContext, ILogger<ToDoController> logger)
         {
-            _todoService = todoService;
+            
             _bus = bus;
             _notificationContext = notificationContext;
             _logger = logger;
         }
 
-        [Route("")]
+        [Route("GetAll")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

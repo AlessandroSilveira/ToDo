@@ -22,8 +22,6 @@ using ToDo.Domain.Handlers.UserHandlers;
 using ToDo.Domain.HealthCheck;
 using ToDo.Domain.Notification;
 using ToDo.Domain.Repositories.Interfaces;
-using ToDo.Domain.Services;
-using ToDo.Domain.Services.Interfaces;
 using ToDo.Infra.Base;
 using ToDo.Infra.Repositories;
 
@@ -37,9 +35,7 @@ namespace ToDo.Api.DependencyInjections
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<IRefreshTokenCacheRepository, RefreshTokenCacheRepository>();
-            services.AddScoped<IJwtAuthManager, JwtAuthManager>();
-            services.AddScoped<ITodoService, ToDoService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IJwtAuthManager, JwtAuthManager>();          
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             return services;
