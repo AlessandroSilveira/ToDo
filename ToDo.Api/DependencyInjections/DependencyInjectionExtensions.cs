@@ -53,17 +53,17 @@ namespace ToDo.Api.DependencyInjections
              .AddDiskStorageHealthCheck(s => s.AddDrive("C:\\", 1024))
                 .AddProcessAllocatedMemoryHealthCheck(512)
                 .AddProcessHealthCheck("ProcessName", p => p.Length > 0)
-                .AddWindowsServiceHealthCheck("someservice", s => true)
+                //.AddWindowsServiceHealthCheck("someservice", s => true)
                 .AddUrlGroup(new Uri("https://localhost:44318/v1/HealthCheck/HealthCheck"), "HealthCheck ToDos")
                 .AddSqlServer(configuration["ConnectionStrings"]);
 
-            services.AddHealthChecksUI(s =>
-            {
-                s.AddHealthCheckEndpoint("HealthCheck ToDos", "https://localhost:44318/health");
-            })
-               .AddInMemoryStorage();
-
-            services.AddScoped<IHealthCheck, SelfHealthCheck>();
+            // services.AddHealthChecksUI(s =>
+            // {
+            //     s.AddHealthCheckEndpoint("HealthCheck ToDos", "https://localhost:44318/health");
+            // })
+            //    .AddInMemoryStorage();
+            //
+            // services.AddScoped<IHealthCheck, SelfHealthCheck>();
 
             return services;
         }
