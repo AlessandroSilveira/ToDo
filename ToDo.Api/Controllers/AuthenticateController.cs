@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -16,8 +18,8 @@ namespace ToDo.Api.Controllers
 {
     [Route("api/[controller]")]
     public class AuthenticateController : ControllerBase
-    {        
-        private readonly IMediator _bus;        
+    {
+        private readonly IMediator _bus;
         private readonly IJwtAuthManager _jwtAuthManager;
         private readonly ILogger<AuthenticateController> _logger;
 
@@ -32,13 +34,13 @@ namespace ToDo.Api.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] User request)
         {
-            if (!ModelState.IsValid)            
-                return BadRequest();            
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             var user = await _bus.Send(new GetUserCommand(request));
 
-            if (user == null)            
-                return Unauthorized();            
+            if (user == null)
+                return Unauthorized();
 
             var claims = new[]
             {
@@ -47,7 +49,7 @@ namespace ToDo.Api.Controllers
             };
 
             var jwtResult = _jwtAuthManager.GenerateTokens(request.Username, claims, DateTime.Now);
-           
+
             return Ok(new LoginResult
             {
                 UserName = request.Username,
@@ -78,8 +80,8 @@ namespace ToDo.Api.Controllers
                 var userName = User.Identity?.Name;
                 _logger.LogInformation($"User [{userName}] is trying to refresh JWT token.");
 
-                if (string.IsNullOrWhiteSpace(request.RefreshToken))                
-                    return Unauthorized();                
+                if (string.IsNullOrWhiteSpace(request.RefreshToken))
+                    return Unauthorized();
 
                 var accessToken = await HttpContext.GetTokenAsync("Bearer", "access_token");
                 var jwtResult = _jwtAuthManager.RefreshAsync(request.RefreshToken, accessToken, DateTime.Now);
@@ -98,6 +100,62 @@ namespace ToDo.Api.Controllers
             {
                 return Unauthorized(e.Message); // return 401 so that the client side can redirect the user to login page
             }
+        }
+
+
+        [HttpPost]
+        [Route("Register")]
+        public async Task<IActionResult> Register([FromBody] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                // We can utilise the model
+                //var existingUser = await _userManager.FindByEmailAsync(user.Email);
+
+                var existingUser = await _bus.Send(new GetUserCommand(user));
+
+                if (existingUser != null)
+                {
+                    _logger.LogInformation("User already in use");
+                    return BadRequest(new AuthResult()
+                    {
+                        Errors = new List<string>() {
+                                "User already in use"
+                            },
+                        Success = false
+                    });
+                    
+                }
+
+                var isCreated = await _bus.Send(new AddUserCommand(user)); //await _userManager.CreateAsync(newUser, user.Password);
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.Name,isCreated.Username),
+                    new Claim(ClaimTypes.Role, "User")
+                };
+
+                if (isCreated != null)
+                {
+                    var jwtToken =  _jwtAuthManager.GenerateTokens(user.Username, claims, DateTime.Now);
+                    return Ok(jwtToken);
+                }
+                else
+                {
+                    return BadRequest(new AuthResult()
+                    {
+                        Errors = new List<string> { "Não foi possível criar o usuário" },
+                        Success = false
+                    }); ;
+                }
+            }
+
+            return BadRequest(new RegistrationResponse()
+            {
+                Errors = new List<string>() {
+                        "Invalid payload"
+                    },
+                Success = false
+            });
         }
     }
 }
