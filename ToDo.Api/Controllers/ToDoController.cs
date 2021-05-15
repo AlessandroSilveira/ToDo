@@ -11,18 +11,17 @@ using ToDo.Domain.Commands.ToDoCommands;
 namespace ToDo.Api.Controllers
 {
     [ApiController]
-    [Route("api/{controller}")]
-    [Authorize]
+    [Route("api/[controller]")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class ToDoController : ControllerBase
     {
-        
         private readonly IMediator _bus;
         private readonly IDomainNotificationContext _notificationContext;
         private readonly ILogger<ToDoController> _logger;
 
-        public ToDoController(IMediator bus, IDomainNotificationContext notificationContext, ILogger<ToDoController> logger)
+        public ToDoController(IMediator bus, IDomainNotificationContext notificationContext,
+            ILogger<ToDoController> logger)
         {
-            
             _bus = bus;
             _notificationContext = notificationContext;
             _logger = logger;
@@ -30,9 +29,10 @@ namespace ToDo.Api.Controllers
 
         [Route("GetAll")]
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
-            var response = await _bus.Send(new GetAllToDoCommand(User.Claims.FirstOrDefault()?.Value));
+            var response = await _bus.Send(new GetAllToDoCommand("Alessandro"));
             _logger.LogInformation($"Success to get all todos");
 
             if (_notificationContext.HasErrorNotifications)
@@ -50,7 +50,6 @@ namespace ToDo.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllDone()
         {
-
             var response = await _bus.Send(new GetAllDoneToDoCommand(User.Claims.FirstOrDefault()?.Value));
             _logger.LogInformation($"Success to get all done todos");
 
@@ -197,7 +196,7 @@ namespace ToDo.Api.Controllers
         [Route("mark-as-done")]
         [HttpPut]
         public async Task<IActionResult> MarkAsDone([FromBody] MarkTodoAsDoneCommand command)
-        {          
+        {
             var response = await _bus.Send(new MarkTodoAsDoneCommand(command.Id, User.Claims.FirstOrDefault()?.Value));
             _logger.LogInformation($"Success to mark todo as done");
 
@@ -216,7 +215,8 @@ namespace ToDo.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> MarkAsUndone([FromBody] MarkTodoAsUndoneCommand command)
         {
-            var response = await _bus.Send(new MarkTodoAsUndoneCommand(command.Id, User.Claims.FirstOrDefault()?.Value));
+            var response =
+                await _bus.Send(new MarkTodoAsUndoneCommand(command.Id, User.Claims.FirstOrDefault()?.Value));
             _logger.LogInformation($"Success to mark todo as undone");
 
             if (_notificationContext.HasErrorNotifications)

@@ -1,30 +1,34 @@
-using System.Linq;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ToDo.Domain.Commands;
+using Refit;
 using ToDo.Domain.Services;
 
 namespace ToDo.Api.Controllers
 {
     [ApiController]
     [Route("api/todos")]
-    [Authorize]
-
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class ExampleGetToDoController : ControllerBase
     {
-        private readonly IExampleGetToDoService _exampleGetToDoService;
-
-        public ExampleGetToDoController(IExampleGetToDoService exampleGetToDoService)
-        {
-            _exampleGetToDoService = exampleGetToDoService;
-        }
-
+        [Route("GetToDos")]
         [HttpGet]
         public async Task<IActionResult> GetToDos()
         {
-            var response = await _exampleGetToDoService.GetAllToDo();
+            var httpClientHandler = new HttpClientHandler();
+            var toDoBaseUrl = "http://localhost:5000";
+
+            httpClientHandler.ServerCertificateCustomValidationCallback =
+                (message, certificate, chain, sslPolicyErrors) => true;
+
+            var refitApiClient = RestService.For<IExampleGetToDoService>(
+                new HttpClient(httpClientHandler)
+                {
+                    BaseAddress = new Uri(toDoBaseUrl)
+                }
+            );
+            var response = await refitApiClient.GetAllToDo();
             return Ok(response);
         }
     }

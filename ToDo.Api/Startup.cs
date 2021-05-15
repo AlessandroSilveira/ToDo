@@ -1,4 +1,3 @@
-using System.Buffers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +8,6 @@ using ToDo.Infra.Context;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using ToDo.Api.DependencyInjections;
-using ToDo.Domain.Auth;
-using Microsoft.AspNetCore.Identity;
 using Refit;
 using ToDo.Domain.Services;
 
@@ -30,7 +27,8 @@ namespace ToDo.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore );
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.ConfigureRepositories();
             services.ConfigureHealthCheck(Configuration);
             services.ConfigureAuthentication(Configuration);
@@ -45,19 +43,19 @@ namespace ToDo.Api
                 options.Configuration = Configuration.GetConnectionString("ConexaoRedis");
                 options.InstanceName = "ToDo.Api";
             });
-
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-
-            var toDoBaseUrl = "http://localhost:5000";
-            services.AddRefitClient<IExampleGetToDoService>().ConfigureHttpClient(c => c.BaseAddress = new System.Uri(toDoBaseUrl));
-            
-            var httpClientHandler = new HttpClientHandler
-            {
-                ClientCertificateOptions = ClientCertificateOption.Automatic
-            };
-
-
-
+            // var toDoBaseUrl = "http://localhost:5000";
+            //
+            // services.AddRefitClient<IExampleGetToDoService>()
+            //     .ConfigureHttpClient(c => c.BaseAddress = new System.Uri(toDoBaseUrl))
+            //     .ConfigurePrimaryHttpMessageHandler(() => NoSslValidationHandler);
+            //
+            // System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+            //     delegate(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+            //         System.Security.Cryptography.X509Certificates.X509Chain chain,
+            //         System.Net.Security.SslPolicyErrors sslPolicyErrors)
+            //     {
+            //         return true; // **** Always accept
+            //     };
         }
 
 

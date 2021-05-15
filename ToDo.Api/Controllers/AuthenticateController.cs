@@ -44,6 +44,7 @@ namespace ToDo.Api.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name,request.Username),
+                new Claim(ClaimTypes.SerialNumber, request.Password),
                 new Claim(ClaimTypes.Role, "User")
             };
 
