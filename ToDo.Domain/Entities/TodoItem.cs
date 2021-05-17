@@ -4,6 +4,10 @@ namespace ToDo.Domain.Entities
 {
     public class TodoItem : Entity
     {
+        public TodoItem()
+        {
+
+        }
         public TodoItem(string title, bool done, DateTime date, string user)
         {
             Title = title;
@@ -19,10 +23,10 @@ namespace ToDo.Domain.Entities
             User = commandUser;
         }
 
-        public string Title { get; private set; }
-        public bool Done { get; private set; }
-        public DateTime Date { get; private set; }
-        public string User { get; private set; }
+        public string Title { get;  set; }
+        public bool Done { get;  set; }
+        public DateTime Date { get;  set; }
+        public string User { get;  set; }
         
         public void MarkAsDone()
         {

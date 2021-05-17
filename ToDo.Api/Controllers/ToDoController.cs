@@ -7,6 +7,7 @@ using ToDo.Domain.Commands;
 using ToDo.Domain.Notification;
 using Microsoft.Extensions.Logging;
 using ToDo.Domain.Commands.ToDoCommands;
+using ToDo.Domain.Services;
 
 namespace ToDo.Api.Controllers
 {
@@ -18,13 +19,15 @@ namespace ToDo.Api.Controllers
         private readonly IMediator _bus;
         private readonly IDomainNotificationContext _notificationContext;
         private readonly ILogger<ToDoController> _logger;
+        private readonly IExampleGetToDoService _exampleGetToDoService;
 
         public ToDoController(IMediator bus, IDomainNotificationContext notificationContext,
-            ILogger<ToDoController> logger)
+            ILogger<ToDoController> logger, IExampleGetToDoService exampleGetToDoService)
         {
             _bus = bus;
             _notificationContext = notificationContext;
             _logger = logger;
+            _exampleGetToDoService = exampleGetToDoService;
         }
 
         [Route("GetAll")]
@@ -45,6 +48,17 @@ namespace ToDo.Api.Controllers
 
             return Ok(response);
         }
+
+        [Route("GetAllWithRefit")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAllWithRefit()
+        {
+            var response = await  _exampleGetToDoService.GetAllToDo();
+
+            return Ok(response);
+        }
+
 
         [Route("done")]
         [HttpGet]

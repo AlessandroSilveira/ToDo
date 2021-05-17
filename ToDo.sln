@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Infra", "ToDo.Infra\To
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Tests", "ToDo.Tests\ToDo.Tests.csproj", "{45E03A68-750F-4CBD-B93D-47E5C4501446}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoRefitExample", "ToDoRefitExample\ToDoRefitExample.csproj", "{2BCFE145-4D93-444E-89A0-420333126BB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{45E03A68-750F-4CBD-B93D-47E5C4501446}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45E03A68-750F-4CBD-B93D-47E5C4501446}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45E03A68-750F-4CBD-B93D-47E5C4501446}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BCFE145-4D93-444E-89A0-420333126BB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BCFE145-4D93-444E-89A0-420333126BB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BCFE145-4D93-444E-89A0-420333126BB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BCFE145-4D93-444E-89A0-420333126BB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

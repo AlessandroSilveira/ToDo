@@ -35,6 +35,7 @@ namespace ToDo.Api
             services.ConfigureSwagger();
             services.ConfigureMediatr();
 
+           
             services.AddDbContext<DataContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("ConnectionStrings")));
 
