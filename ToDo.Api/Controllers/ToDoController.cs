@@ -12,7 +12,7 @@ namespace ToDo.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Microsoft.AspNetCore.Authorization.Authorize]
+  
     public class ToDoController : ControllerBase
     {
         private readonly IMediator _bus;
@@ -48,6 +48,7 @@ namespace ToDo.Api.Controllers
 
         [Route("done")]
         [HttpGet]
+        [Microsoft.AspNetCore.Authorization.Authorize]
         public async Task<IActionResult> GetAllDone()
         {
             var response = await _bus.Send(new GetAllDoneToDoCommand(User.Claims.FirstOrDefault()?.Value));
@@ -66,6 +67,7 @@ namespace ToDo.Api.Controllers
 
         [Route("undone")]
         [HttpGet]
+        [Microsoft.AspNetCore.Authorization.Authorize]
         public async Task<IActionResult> GetAllUndone()
         {
             var response = await _bus.Send(new GetAllUndoneToDoCommand(User.Claims.FirstOrDefault()?.Value));
@@ -84,6 +86,7 @@ namespace ToDo.Api.Controllers
 
         [Route("done/today")]
         [HttpGet]
+        [Microsoft.AspNetCore.Authorization.Authorize]
         public async Task<IActionResult> GetDoneForToday()
         {
             var response = await _bus.Send(new GetDoneForTodayToDoCommand(User.Claims.FirstOrDefault()?.Value));
@@ -102,6 +105,7 @@ namespace ToDo.Api.Controllers
 
         [Route("undone/today")]
         [HttpGet]
+        [Microsoft.AspNetCore.Authorization.Authorize]
         public async Task<IActionResult> GetInactiveForToday()
         {
             var response = await _bus.Send(new GetUndoneForTodayToDoCommand(User.Claims.FirstOrDefault()?.Value));
@@ -120,6 +124,7 @@ namespace ToDo.Api.Controllers
 
         [Route("done/tomorrow")]
         [HttpGet]
+        [Microsoft.AspNetCore.Authorization.Authorize]
         public async Task<IActionResult> GetDoneForTomorrow()
         {
             var response = await _bus.Send(new GetDoneForTomorrowToDoCommand(User.Claims.FirstOrDefault()?.Value));
@@ -138,6 +143,7 @@ namespace ToDo.Api.Controllers
 
         [Route("undone/tomorrow")]
         [HttpGet]
+        [Microsoft.AspNetCore.Authorization.Authorize]
         public async Task<IActionResult> GetUndoneForTomorrow()
         {
             var response = await _bus.Send(new GetUndoneForTomorrowToDoCommand(User.Claims.FirstOrDefault()?.Value));
@@ -156,6 +162,7 @@ namespace ToDo.Api.Controllers
 
         [Route("")]
         [HttpPost]
+        [Microsoft.AspNetCore.Authorization.Authorize]
         public async Task<IActionResult> Create([FromBody] CreateTodoCommand command)
         {
             command.User = User.Claims.FirstOrDefault()?.Value;
@@ -176,6 +183,7 @@ namespace ToDo.Api.Controllers
 
         [Route("")]
         [HttpPut]
+        [Microsoft.AspNetCore.Authorization.Authorize]
         public async Task<IActionResult> Update([FromBody] UpdateTodoCommand command)
         {
             command.User = User.Claims.FirstOrDefault()?.Value;
@@ -195,6 +203,7 @@ namespace ToDo.Api.Controllers
 
         [Route("mark-as-done")]
         [HttpPut]
+        [Microsoft.AspNetCore.Authorization.Authorize]
         public async Task<IActionResult> MarkAsDone([FromBody] MarkTodoAsDoneCommand command)
         {
             var response = await _bus.Send(new MarkTodoAsDoneCommand(command.Id, User.Claims.FirstOrDefault()?.Value));
@@ -213,6 +222,7 @@ namespace ToDo.Api.Controllers
 
         [Route("mark-as-undone")]
         [HttpPut]
+        [Microsoft.AspNetCore.Authorization.Authorize]
         public async Task<IActionResult> MarkAsUndone([FromBody] MarkTodoAsUndoneCommand command)
         {
             var response =

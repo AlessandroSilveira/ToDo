@@ -8,6 +8,6 @@ namespace ToDo.Domain.Services
     public interface IExampleGetToDoService
     {
         [Get("/api/ToDo/GetAll")]
-        Task<IEnumerable<TodoItem>> GetAllToDo();
+        Task<IEnumerable<TodoItemResponse>> GetAllToDo();
     }
 }

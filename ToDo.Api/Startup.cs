@@ -43,19 +43,9 @@ namespace ToDo.Api
                 options.Configuration = Configuration.GetConnectionString("ConexaoRedis");
                 options.InstanceName = "ToDo.Api";
             });
-            // var toDoBaseUrl = "http://localhost:5000";
-            //
-            // services.AddRefitClient<IExampleGetToDoService>()
-            //     .ConfigureHttpClient(c => c.BaseAddress = new System.Uri(toDoBaseUrl))
-            //     .ConfigurePrimaryHttpMessageHandler(() => NoSslValidationHandler);
-            //
-            // System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-            //     delegate(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate,
-            //         System.Security.Cryptography.X509Certificates.X509Chain chain,
-            //         System.Net.Security.SslPolicyErrors sslPolicyErrors)
-            //     {
-            //         return true; // **** Always accept
-            //     };
+            
+            services.AddRefitClient<IExampleGetToDoService>()
+                .ConfigureHttpClient(c => c.BaseAddress = new System.Uri("http://localhost:5000"));
         }
 
 
