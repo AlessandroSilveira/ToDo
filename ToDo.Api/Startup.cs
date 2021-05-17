@@ -45,7 +45,7 @@ namespace ToDo.Api
             });
             
             services.AddRefitClient<IExampleGetToDoService>()
-                .ConfigureHttpClient(c => c.BaseAddress = new System.Uri("http://localhost:5000"));
+                .ConfigureHttpClient(c => c.BaseAddress = new System.Uri(Configuration["ToDoBaseUrl"].ToString()));
         }
 
 

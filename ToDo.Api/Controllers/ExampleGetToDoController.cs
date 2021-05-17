@@ -8,7 +8,7 @@ namespace ToDo.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Microsoft.AspNetCore.Authorization.Authorize]
+    [Authorize]
     public class ExampleGetToDoController : ControllerBase
     {
         private readonly IExampleGetToDoService _exampleGetToDoService;
