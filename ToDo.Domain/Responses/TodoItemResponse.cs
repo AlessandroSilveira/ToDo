@@ -1,6 +1,6 @@
 using System;
 
-namespace ToDo.Domain
+namespace ToDo.Domain.Responses
 {
     public class TodoItemResponse
     {

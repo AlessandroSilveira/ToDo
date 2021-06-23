@@ -158,10 +158,6 @@ namespace ToDo.Api.DependencyInjections
             services.AddTransient<IRequestHandler<AddRefreshTokenCommand, RefreshToken>, AddRefreshTokenCommandHandler>();
             services.AddTransient<IRequestHandler<AddUserCommand, User>, AddUserCommandHandler>();
             
-
-
-
-
             return services;
         }
     }
