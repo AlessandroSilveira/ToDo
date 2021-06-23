@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using ToDo.Domain.Entities;
 
-namespace Todo.Domain.Queries
+namespace ToDo.Domain.Queries
 {
     public static class TodoQueries
     {

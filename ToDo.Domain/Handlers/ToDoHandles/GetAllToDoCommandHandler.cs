@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using ToDo.Domain.Commands;
+using ToDo.Domain.Commands.ToDoCommands;
 using ToDo.Domain.Entities;
 using ToDo.Domain.Repositories.Interfaces;
 
@@ -18,10 +19,9 @@ namespace ToDo.Domain.Handlers.ToDoHandles
             _todoRepository = todoRepository;
         }
 
-        public async Task<IEnumerable<TodoItem>> Handle(GetAllToDoCommand request,
-            CancellationToken cancellationToken)
+        public async Task<IEnumerable<TodoItem>> Handle(GetAllToDoCommand request, CancellationToken cancellationToken)
         {
-            var dados = _todoRepository.GetAll().Result.Where(a => a.User == request.User);
+            var dados = await _todoRepository.Search(a => a.User == request.User);
             //return new GenericCommandResult(true,"Lista de Tarefas", retorno);
             return await Task.FromResult(dados);
         }

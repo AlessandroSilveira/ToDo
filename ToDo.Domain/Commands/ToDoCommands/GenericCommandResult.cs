@@ -1,5 +1,5 @@
 
-namespace ToDo.Domain.Commands
+namespace ToDo.Domain.Commands.ToDoCommands
 {
     public class GenericCommandResult 
     {

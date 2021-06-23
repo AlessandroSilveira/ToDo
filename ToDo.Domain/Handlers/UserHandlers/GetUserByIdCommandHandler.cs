@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using ToDo.Domain.Repositories.Interfaces;
 
 namespace ToDo.Domain.Handlers.UserHandlers
 {
-    public class GetUserByIdCommandHandler : IRequestHandler<AddUserCommand, User>
+    public class GetUserByIdCommandHandler : IRequestHandler<GetUserByIdCommand, User>
     {
         private readonly IUserRepository _userRepository;
 
@@ -17,9 +18,9 @@ namespace ToDo.Domain.Handlers.UserHandlers
             _userRepository = userRepository;
         }
 
-        public async Task<User> Handle(AddUserCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(GetUserByIdCommand request, CancellationToken cancellationToken)
         {
-            var dados = await _userRepository.Search(a =>a.Username == request.User.Username);
+            var dados = await _userRepository.Search(a =>a.Id == Guid.Parse(request.UserId));
             return await Task.FromResult(dados.FirstOrDefault());
         }
     }

@@ -15,9 +15,9 @@ namespace ToDo.Domain.Commands.ToDoCommands
             User = user;
         }
 
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string User { get; set; }
+        public Guid Id { get; private set; }
+        public string Title { get; private set; }
+        public string User { get; private set; }
 
     }
 }

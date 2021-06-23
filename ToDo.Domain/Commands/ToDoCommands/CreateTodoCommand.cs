@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace ToDo.Domain.Commands
+namespace ToDo.Domain.Commands.ToDoCommands
 {
     public class CreateTodoCommand  :  IRequest<GenericCommandResult>
     {

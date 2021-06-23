@@ -1,9 +1,7 @@
 using System;
-using System.Diagnostics.Contracts;
-using System.Windows.Input;
 using MediatR;
 
-namespace ToDo.Domain.Commands
+namespace ToDo.Domain.Commands.ToDoCommands
 {
     public class MarkTodoAsDoneCommand : IRequest<GenericCommandResult>
     {

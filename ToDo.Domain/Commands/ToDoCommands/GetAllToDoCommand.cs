@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using MediatR;
 using ToDo.Domain.Entities;
 
-namespace ToDo.Domain.Commands
+namespace ToDo.Domain.Commands.ToDoCommands
 {
     public class GetAllToDoCommand : IRequest<IEnumerable<TodoItem>>
     {

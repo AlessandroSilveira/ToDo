@@ -1,5 +1,6 @@
 using FluentValidation;
 using ToDo.Domain.Commands;
+using ToDo.Domain.Commands.ToDoCommands;
 
 namespace ToDo.Domain.Validators.Commands
 {

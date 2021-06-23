@@ -4,10 +4,10 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ToDo.Domain.Commands;
+using ToDo.Domain.Commands.ToDoCommands;
 using ToDo.Domain.Notification;
 
-namespace ToDo.Api.Controllers
+namespace ToDoRefitExample.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
