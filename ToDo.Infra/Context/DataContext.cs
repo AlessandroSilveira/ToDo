@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using ToDo.Domain.Auth;
 using ToDo.Domain.Entities;
 
@@ -7,11 +8,15 @@ namespace ToDo.Infra.Context
 {
     public class DataContext  : DbContext
     {
+        public IConfiguration Configuration { get; }
+    
         public DataContext()
         {
+            
         }
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        public DataContext(DbContextOptions<DataContext> options, IConfiguration configuration) : base(options)
         {
+            Configuration = configuration;
         }
 
         public virtual DbSet<TodoItem> Todos { get; set; }
@@ -21,8 +26,8 @@ namespace ToDo.Infra.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=localhost;Database=Todos;User ID=sa;Password=Sprpwd1234;MultipleActiveResultSets=True;");
+            {   
+                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("ConnectionStrings"));
             }
         }
         
