@@ -9,7 +9,7 @@ namespace ToDo.Domain.Handlers.AuthHandlers
 {
     public class AddRefreshTokenCommandHandler : IRequestHandler<AddRefreshTokenCommand, RefreshToken>
     {
-        public readonly IRefreshTokenCacheRepository _refreshTokenRepository;
+        private readonly IRefreshTokenCacheRepository _refreshTokenRepository;
 
         public AddRefreshTokenCommandHandler(IRefreshTokenCacheRepository refreshTokenRepository)
         {
@@ -18,7 +18,7 @@ namespace ToDo.Domain.Handlers.AuthHandlers
 
         public async Task<RefreshToken> Handle(AddRefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            _refreshTokenRepository.Add(request.RefreshToken);
+             await _refreshTokenRepository.Add(request.RefreshToken);
             return request.RefreshToken;
         }
     }

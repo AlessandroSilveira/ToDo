@@ -22,13 +22,15 @@ namespace ToDo.Infra.Base
         {
             try
             {
+                
+           
                 await Context.Set<TEntity>().AddAsync(obj);
                 await Context.SaveChangesAsync();
                 return obj;
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Erro ao Inserir ", ex); 
             }
         }
 
@@ -39,7 +41,7 @@ namespace ToDo.Infra.Base
 
         public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return Context.Set<TEntity>().ToList();
+            return await Context.Set<TEntity>().ToList();
         }
 
         public async Task<TEntity> Update(TEntity obj)
@@ -52,21 +54,17 @@ namespace ToDo.Infra.Base
 
         public async Task Remove(Guid id)
         {
-            var entity = Context.Set<TEntity>().FindAsync(id).Result;
+            var entity = await Context.Set<TEntity>().FindAsync(id);
             Context.Set<TEntity>().Remove(entity);
             await Context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate)
         {
-            return Context.Set<TEntity>().Where(predicate);
+            return await Context.Set<TEntity>().Where(predicate);
         }
 
-        public async Task Dispose()
-        {
-            Context.Dispose();
-            GC.SuppressFinalize(this);
-        }
+      
 
         public async Task<TEntity> GetOne(Expression<Func<TEntity, bool>> predicate)
         {

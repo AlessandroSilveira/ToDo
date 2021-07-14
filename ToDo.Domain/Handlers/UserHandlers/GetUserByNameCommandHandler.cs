@@ -20,7 +20,7 @@ namespace ToDo.Domain.Handlers.UserHandlers
         public async Task<User> Handle(GetUserByNameCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.Search(a => a.Username == request.Name);
-            return user.ToList().FirstOrDefault();
+            return user.FirstOrDefault();
         }
     }
 }

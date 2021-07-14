@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Threading.Tasks;
+using MediatR;
 using ToDo.Domain.Auth;
 
 namespace ToDo.Domain.Commands.AuthCommands

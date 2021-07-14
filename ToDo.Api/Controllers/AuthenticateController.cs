@@ -131,7 +131,7 @@ namespace ToDo.Api.Controllers
                     new Claim(ClaimTypes.Role, "User")
                 };
 
-                if (isCreated != null)
+                if (string.IsNullOrEmpty(isCreated.Username))
                 {
                     var jwtToken =  _jwtAuthManager.GenerateTokens(user.Username, claims, DateTime.Now);
                     return Ok(jwtToken);
@@ -143,7 +143,7 @@ namespace ToDo.Api.Controllers
                     {
                         Errors = new List<string> { "N�o foi poss�vel criar o usu�rio" },
                         Success = false
-                    }); ;
+                    });
                 }
             }
 

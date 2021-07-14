@@ -22,7 +22,7 @@ namespace ToDo.Domain.Handlers.ToDoHandles
         public async Task<IEnumerable<TodoItem>> Handle(GetAllToDoCommand request, CancellationToken cancellationToken)
         {
             var dados = await _todoRepository.Search(a => a.User == request.User);
-            //return new GenericCommandResult(true,"Lista de Tarefas", retorno);
+            
             return await Task.FromResult(dados);
         }
     }

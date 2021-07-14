@@ -13,7 +13,6 @@ namespace ToDo.Domain.Base
         Task<TEntity> Update(TEntity obj);
         Task Remove(Guid id);
         Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate);
-        Task Dispose();
         Task<TEntity> GetOne(Expression<Func<TEntity, bool>> predicate);
         void DetachLocal(Func<TEntity, bool> predicate);
     }

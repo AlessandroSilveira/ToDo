@@ -21,7 +21,7 @@ namespace ToDo.Domain.Handlers.ToDoHandles
 
         public async Task<IEnumerable<TodoItem>> Handle(GetDoneForTomorrowToDoCommand request, CancellationToken cancellationToken)
         {
-            var dados = await _todoRepository.Search(a => a.User == request.User && a.Done == true && a.Date == DateTime.Now.AddDays(1));
+            var dados = await _todoRepository.Search(a => a.User == request.User && a.Done && a.Date == DateTime.Now.AddDays(1));
             return await Task.FromResult(dados);
         }
     }

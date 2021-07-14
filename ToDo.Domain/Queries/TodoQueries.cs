@@ -13,12 +13,12 @@ namespace ToDo.Domain.Queries
 
         public static Expression<Func<TodoItem, bool>> GetAllDone(string user)
         {
-            return x => x.User == user && x.Done == true;
+            return x => x.User == user && x.Done;
         }
 
         public static Expression<Func<TodoItem, bool>> GetAllUndone(string user)
         {
-            return x => x.User == user && x.Done == false;
+            return x => x.User == user && !x.Done;
         }
 
         public static Expression<Func<TodoItem, bool>> GetByPeriod(string user, DateTime date, bool done)

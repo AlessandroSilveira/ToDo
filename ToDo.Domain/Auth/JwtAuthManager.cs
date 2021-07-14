@@ -21,15 +21,15 @@ namespace ToDo.Domain.Auth
         private readonly JwtTokenConfig _jwtTokenConfig;
         private readonly byte[] _secret;
         private readonly IMediator _bus;
-        private readonly IRefreshTokenCacheRepository _refreshTokenCacheRepository;
+        
 
-        public JwtAuthManager(JwtTokenConfig jwtTokenConfig, IMediator bus, IRefreshTokenCacheRepository refreshTokenCacheRepository)
+        public JwtAuthManager(JwtTokenConfig jwtTokenConfig, IMediator bus)
         {
             _jwtTokenConfig = jwtTokenConfig;
             _usersRefreshTokens = new ConcurrentDictionary<string, RefreshToken>();
             _secret = Encoding.ASCII.GetBytes(jwtTokenConfig.Secret);
             _bus = bus;
-            _refreshTokenCacheRepository = refreshTokenCacheRepository;
+            
         }
 
         // optional: clean up expired refresh tokens
@@ -68,7 +68,7 @@ namespace ToDo.Domain.Auth
                 ExpireAt = now.AddMinutes(_jwtTokenConfig.RefreshTokenExpiration)
             };
 
-            //_usersRefreshTokens.AddOrUpdate(refreshToken.TokenString, refreshToken, (_, _) => refreshToken);
+           
             _bus.Send(new AddRefreshTokenCommand(refreshToken));
 
             return new JwtAuthResult

@@ -21,7 +21,7 @@ namespace ToDo.Domain.Handlers.ToDoHandles
 
         public async Task<IEnumerable<TodoItem>> Handle(GetAllUndoneToDoCommand request, CancellationToken cancellationToken)
         {
-            var dados = await _todoRepository.Search(a => a.User == request.User && a.Done == false);
+            var dados = await _todoRepository.Search(a => a.User == request.User && !a.Done);
             return await Task.FromResult(dados);
         }
     }
