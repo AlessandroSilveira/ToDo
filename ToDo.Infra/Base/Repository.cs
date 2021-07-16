@@ -11,72 +11,68 @@ namespace ToDo.Infra.Base
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected DataContext Context;
+        private readonly DataContext _context;
 
         public Repository(DataContext context)
         {
-            Context = context;
+            _context = context;
         }
 
         public async Task<TEntity> Add(TEntity obj)
         {
             try
             {
-                
-           
-                await Context.Set<TEntity>().AddAsync(obj);
-                await Context.SaveChangesAsync();
+                await _context.Set<TEntity>().AddAsync(obj);
+                await _context.SaveChangesAsync();
                 return obj;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception("Erro ao Inserir ", ex); 
+                throw new ArgumentNullException("Erro ao inserir");
             }
         }
 
         public async Task<TEntity> GetById(Guid id)
         {
-            return await Context.Set<TEntity>().FindAsync(id);
+            return await _context.Set<TEntity>().FindAsync(id);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public Task<IEnumerable<TEntity>> GetAll()
         {
-            return await Context.Set<TEntity>().ToList();
+            return Task.FromResult<IEnumerable<TEntity>>(_context.Set<TEntity>().ToList());
         }
 
         public async Task<TEntity> Update(TEntity obj)
         {
-            Context.Entry(obj).State = EntityState.Detached;
-            Context.Entry(obj).State = EntityState.Modified;
-            await Context.SaveChangesAsync();
+            _context.Entry(obj).State = EntityState.Detached;
+            _context.Entry(obj).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
             return obj;
         }
 
         public async Task Remove(Guid id)
         {
-            var entity = await Context.Set<TEntity>().FindAsync(id);
-            Context.Set<TEntity>().Remove(entity);
-            await Context.SaveChangesAsync();
+            var entity = await _context.Set<TEntity>().FindAsync(id);
+            _context.Set<TEntity>().Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate)
+        public Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate)
         {
-            return await Context.Set<TEntity>().Where(predicate);
+            return  Task.FromResult<IEnumerable<TEntity>>(_context.Set<TEntity>().Where(predicate));
         }
 
-      
-
-        public async Task<TEntity> GetOne(Expression<Func<TEntity, bool>> predicate)
+        public Task<TEntity> GetOne(Expression<Func<TEntity, bool>> predicate)
         {
-            return Context.Set<TEntity>().Where(predicate).FirstOrDefault();
+            return Task.FromResult(_context.Set<TEntity>().FirstOrDefault(predicate));
         }
 
         public void DetachLocal(Func<TEntity, bool> predicate)
         {
-            var local = Context.Set<TEntity>().Local.Where(predicate).FirstOrDefault();
+            var local = _context.Set<TEntity>().Local.FirstOrDefault(predicate);
             if (local !=null)
             {
-                Context.Entry(local).State = EntityState.Detached;
+                _context.Entry(local).State = EntityState.Detached;
             }
         }
     }

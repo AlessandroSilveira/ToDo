@@ -117,7 +117,7 @@ namespace ToDo.Api.DependencyInjections
                                 Id = "Bearer"
                             }
                         },
-                        new string[] { }
+                        Array.Empty<string>()
                     }
                 });
             });
@@ -145,7 +145,6 @@ namespace ToDo.Api.DependencyInjections
             services.AddTransient<IRequestHandler<UpdateTodoCommand, GenericCommandResult>, UpdateTodoCommandHandler>();
             services.AddTransient<IRequestHandler<GetUserCommand, User>, GetUserCommandHandler>();
             services.AddTransient<IRequestHandler<GetRefreshTokenCommand, RefreshToken>, GetRefreshTokenCommandHandler>();
-            services.AddTransient<IRequestHandler<UpdateRefreskTokenCommand, RefreshToken>, UpdateRefreshTokenCommandHandler>();
             services.AddTransient<IRequestHandler<AddRefreshTokenCommand, RefreshToken>, AddRefreshTokenCommandHandler>();
             services.AddTransient<IRequestHandler<AddUserCommand, User>, AddUserCommandHandler>();
             

@@ -18,8 +18,8 @@ namespace ToDo.Infra.Repositories
 
         public void Add(RefreshToken refreshToken)
         {
-            TimeSpan finalExpiration =TimeSpan.FromSeconds(120);
-            DistributedCacheEntryOptions opcoesCache = new DistributedCacheEntryOptions();
+            var finalExpiration =TimeSpan.FromSeconds(120);
+            var opcoesCache = new DistributedCacheEntryOptions();
             opcoesCache.SetAbsoluteExpiration(finalExpiration);
             _cache.SetString(refreshToken.TokenString, JsonConvert.SerializeObject(refreshToken),opcoesCache);
         }
@@ -27,7 +27,7 @@ namespace ToDo.Infra.Repositories
         public Task<RefreshToken> GetById(string refreshToken)
         {
             RefreshToken refreshTokenBase = null;
-            string strTokenArmazenado =_cache.GetString(refreshToken);
+            var strTokenArmazenado =_cache.GetString(refreshToken);
 
             if (!string.IsNullOrWhiteSpace(strTokenArmazenado))            
                 refreshTokenBase = JsonConvert.DeserializeObject<RefreshToken>(strTokenArmazenado);            

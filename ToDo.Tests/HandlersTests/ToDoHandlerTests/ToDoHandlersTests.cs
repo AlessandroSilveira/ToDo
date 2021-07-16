@@ -56,7 +56,7 @@ namespace ToDo.Tests.HandlersTests.ToDoHandlerTests
             };
 
             var handler = new GetAllDoneToDoCommandHandler(_toDoRepositoryMock.Object);
-            _toDoRepositoryMock.Setup(a => a.Search(a => a.User == command.User && a.Done == true )).ReturnsAsync(listToDoItem);
+            _toDoRepositoryMock.Setup(a => a.Search(a => a.User == command.User && a.Done )).ReturnsAsync(listToDoItem);
 
             //Act
             var result = await handler.Handle(command, new CancellationToken());
@@ -91,7 +91,7 @@ namespace ToDo.Tests.HandlersTests.ToDoHandlerTests
             };
 
             var handler = new GetAllUndoneToDoCommandHandler(_toDoRepositoryMock.Object);
-            _toDoRepositoryMock.Setup(a => a.Search(a=>a.User == command.User && a.Done == false)).ReturnsAsync(listToDoItem);
+            _toDoRepositoryMock.Setup(a => a.Search(a=>a.User == command.User && !a.Done)).ReturnsAsync(listToDoItem);
 
             //Act
             var result = await handler.Handle(command, new CancellationToken());
@@ -109,7 +109,7 @@ namespace ToDo.Tests.HandlersTests.ToDoHandlerTests
             };
 
             var handler = new GetDoneForTodayToDoCommandHandler(_toDoRepositoryMock.Object);
-            _toDoRepositoryMock.Setup(a => a.Search(a=>a.User == command.User && a.Done == true && a.Date == DateTime.Now.Date)).ReturnsAsync(listToDoItem);
+            _toDoRepositoryMock.Setup(a => a.Search(a=>a.User == command.User && a.Done && a.Date == DateTime.Now.Date)).ReturnsAsync(listToDoItem);
 
             //Act
             var result = await handler.Handle(command, new CancellationToken());
@@ -128,7 +128,7 @@ namespace ToDo.Tests.HandlersTests.ToDoHandlerTests
 
            
             var handler = new GetDoneForTomorrowToDoCommandHandler(_toDoRepositoryMock.Object);
-            _toDoRepositoryMock.Setup(a => a.Search(a=>a.User == command.User && a.Done == true && a.Date == DateTime.Now.AddDays(1))).ReturnsAsync(listToDoItem);
+            _toDoRepositoryMock.Setup(a => a.Search(a=>a.User == command.User && a.Done && a.Date == DateTime.Now.AddDays(1))).ReturnsAsync(listToDoItem);
 
             //Act
             var result = await handler.Handle(command, new CancellationToken());
@@ -146,7 +146,7 @@ namespace ToDo.Tests.HandlersTests.ToDoHandlerTests
             };
 
             var handler = new GetUndoneForTodayToDoCommandHandler(_toDoRepositoryMock.Object);
-            _toDoRepositoryMock.Setup(a => a.Search(a=>a.User == command.User && a.Done == false && a.Date == DateTime.Now.Date)).ReturnsAsync(listToDoItem);
+            _toDoRepositoryMock.Setup(a => a.Search(a=>a.User == command.User && !a.Done && a.Date == DateTime.Now.Date)).ReturnsAsync(listToDoItem);
 
             //Act
             var result = await handler.Handle(command, new CancellationToken());
@@ -163,7 +163,7 @@ namespace ToDo.Tests.HandlersTests.ToDoHandlerTests
             };
 
             var handler = new GetUndoneForTomorrowToDoCommandHandler(_toDoRepositoryMock.Object);
-            _toDoRepositoryMock.Setup(a => a.Search(a=>a.User == command.User && a.Done == false && a.Date == DateTime.Now.AddDays(1))).ReturnsAsync(listToDoItem);
+            _toDoRepositoryMock.Setup(a => a.Search(a=>a.User == command.User && !a.Done && a.Date == DateTime.Now.AddDays(1))).ReturnsAsync(listToDoItem);
 
             //Act
             var result = await handler.Handle(command, new CancellationToken());

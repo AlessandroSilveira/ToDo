@@ -18,8 +18,8 @@ namespace ToDo.Domain.Handlers.AuthHandlers
 
         public async Task<RefreshToken> Handle(AddRefreshTokenCommand request, CancellationToken cancellationToken)
         {
-             await _refreshTokenRepository.Add(request.RefreshToken);
-            return request.RefreshToken;
+             _refreshTokenRepository.Add(request.RefreshToken);
+            return await Task.FromResult(request.RefreshToken);
         }
     }
 }

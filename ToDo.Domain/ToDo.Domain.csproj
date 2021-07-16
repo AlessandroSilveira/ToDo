@@ -12,6 +12,7 @@
       <Compile Remove="Behaviors\DomainNotificationType.cs" />
       <Compile Remove="Behaviors\IDomainNotificationContext.cs" />
       <Compile Remove="Behaviors\Response.cs" />
+      <Compile Remove="Handlers\AuthHandlers\UpdateRefreshTokenCommandHandler.cs" />
     </ItemGroup>
 
     <ItemGroup>

@@ -5,7 +5,7 @@ namespace ToDo.Domain.Entities
 {
     public class Entity : IEquatable<Entity>
     {
-        public Entity()
+        protected Entity()
         {
             Id = Guid.NewGuid();
         }
@@ -17,5 +17,7 @@ namespace ToDo.Domain.Entities
         {
             return Id == other.Id;
         }
+
+     
     }
 }

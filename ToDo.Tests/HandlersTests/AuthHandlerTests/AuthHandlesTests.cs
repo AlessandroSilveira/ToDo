@@ -63,21 +63,21 @@ namespace ToDo.Tests.HandlersTests.AuthHandlerTests
             result.Should().Equals(refreshToken.TokenString);
         }
         
-        [Test]
-        public void UpdateRefreshTokenCommandHandlerShouldReturnRefreshToken()
-        {
-            var refreshToken = new RefreshToken()
-            {
-                UserName = "Teste",
-                ExpireAt = DateTime.Now.AddDays(1),
-                TokenString = Guid.NewGuid().ToString()
-            };
-            var command = new UpdateRefreskTokenCommand(refreshToken);
-            var handler = new UpdateRefreshTokenCommandHandler(_refreshTokenRepositoryMock.Object);
-           
-            var result = handler.Handle(command, new CancellationToken());
-
-            result.Should().Equals(refreshToken.TokenString);
-        }
+        // [Test]
+        // public void UpdateRefreshTokenCommandHandlerShouldReturnRefreshToken()
+        // {
+        //     var refreshToken = new RefreshToken()
+        //     {
+        //         UserName = "Teste",
+        //         ExpireAt = DateTime.Now.AddDays(1),
+        //         TokenString = Guid.NewGuid().ToString()
+        //     };
+        //     var command = new UpdateRefreskTokenCommand(refreshToken);
+        //     var handler = new UpdateRefreshTokenCommandHandler(_refreshTokenRepositoryMock.Object);
+        //    
+        //     var result = handler.Handle(command, new CancellationToken());
+        //
+        //     result.Should().Equals(refreshToken.TokenString);
+        // }
     }
 }

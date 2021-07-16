@@ -5,7 +5,7 @@ namespace ToDo.Domain.Repositories.Interfaces
 {
     public interface IRefreshTokenCacheRepository
     {
-        Task Add(RefreshToken refreshToken);
+        void Add(RefreshToken refreshToken);
         Task<RefreshToken> GetById(string refreshToken);
     }
 }

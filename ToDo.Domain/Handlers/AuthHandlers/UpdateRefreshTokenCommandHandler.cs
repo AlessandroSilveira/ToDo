@@ -8,19 +8,13 @@ using ToDo.Domain.Repositories.Interfaces;
 namespace ToDo.Domain.Handlers.AuthHandlers
 {
     public class UpdateRefreshTokenCommandHandler : IRequestHandler<UpdateRefreskTokenCommand, RefreshToken>
-    {
-       
-
-        public UpdateRefreshTokenCommandHandler()
+    {   public UpdateRefreshTokenCommandHandler()
         {
             
         }
 
         public async Task<RefreshToken> Handle(UpdateRefreskTokenCommand request, CancellationToken cancellationToken)
-        {
-            
-
-            return new RefreshToken();
+        {   return new();
            
         }
     }
