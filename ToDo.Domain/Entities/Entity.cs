@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ToDo.Domain.Entities
 {
-    public class Entity : IEquatable<Entity>
+    public sealed class Entity : IEquatable<Entity>
     {
         protected Entity()
         {
@@ -18,6 +18,14 @@ namespace ToDo.Domain.Entities
             return Id == other.Id;
         }
 
-     
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Entity);
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

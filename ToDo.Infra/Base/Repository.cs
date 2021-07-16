@@ -26,9 +26,9 @@ namespace ToDo.Infra.Base
                 await _context.SaveChangesAsync();
                 return obj;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new ArgumentNullException("Erro ao inserir");
+                throw new ArgumentNullException("Erro ao inserir", ex);
             }
         }
 
